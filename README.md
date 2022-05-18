@@ -3933,7 +3933,7 @@ project1
 ----------------
 Core Java, SQL,SpringBoot
 
-
+Day 13
 CSS
 ==========
 
@@ -3953,6 +3953,151 @@ tomo
 
 
 
+Spring
+==============
+What is Spring ?
+
+Dependency Injection (DI)
+Inversion of control (IOC)
+
+	-open source framework
+	- works on IOC and DI principle
+	- spring IOC container
+	-  IOC container manages the objects ( creates and destroys)  lifecycle of objects
+
+	- framework of frameworks
+	- core spring
+	- spring data jpa
+	- spring aop ( aspect oritented programming )
+
+
+Spring aims to simplify the complex and cumbersome enterprise Java application development process by offering a framework that includes technologies such as:
+
+Aspect-oriented programming (AOP)
+Dependency injection (DI)
+Plain Old Java Object (POJO)
+
+IoC (Inversion of Control) Container
+IoC container is one of the core features of Spring that provides a streamlined way to configure and manage Java objects. This container is responsible for managing the lifecycle of a defined Java object, significantly increasing the configurability of a Spring-based application.
+
+IoC uses the dependency injection or dependency lookup patterns to provide the object reference during runtime. The container consists of assembler code that is required for configuration management.
+
+Spring provides org.springframework.beans and org.springframework.context packages that can be used to facilitate these functions.
+
+
+Problems with spring
+------------------------
+	configuration is little complex
+	
+
+Spring Boot
+--------------
+	spring with zero configuration
+	Embedded Tomcat
+		8080
+
+	Spring Core
+	Spring AOP
+	Spring Data JPA
+	Spring Rest
+
+	beans - object managed by spring IOC container
+
+	
+
+
+
+SpringBoot
+=============
+
+SpringBoot - Intellij
+
+File --> Settings --> Plugins --> Spring Boot Assistant -=> Install This
+
+
+
+P1
+
+com.revature.training
+			model
+			
+			controller
+
+
+		localhost:8081
+
+
+		Welcome to Revature
+
+
+
+
+localhost:8082			- Revature Welcomes You
+localhost:8082/devops			- This is devops batch
+localhost:8082/docker		- Docker isa tool 
+
+
+15 minutes
+
+
+controller
+
+
+MVC Design pattern
+==================
+
+
+Two types of apps :
+	1) To be consumed by end users		google.com	- HTML
+	2) To be consumed by another app				- JSON	
+
+		amazon	buy-->CC	request	-->	--response	bankapp
+
+
+		app that has be consumed another app
+
+		RestController	- 
+
+Rest - Representation state transfer
+
+URL/URI
+
+	192.68.71.76:8097/devops
+
+Rest Web Services
+
+	
+
+
+	Http Methods
+
+		GET		- get a record		@GetMapping
+		POST		- insert/create		@PostMapping
+		PUT		- update			@PutMapping
+		DELETE		- delete			@DeleteMapping
+
+Use case :  create an app that should give another these options
+
+	localhost:8084/product
+
+
+
+lombok 
+	- third party library which is reduce boilerplate codes
+	- 
+
+
+
+
+
+p1 : Set up the backend for an online store to buy items. Users can register and login to add items to their cart. Then they can place orders. Registered users are are stored in the Users table. Items that users can buy are stored in the Items table. User's carts are stored in the Cart table. Users order's are stored in the Orders table.
+
+Features Implemented
+Register - register new users
+Login/Logout - login and logout users
+Get Users - get all users and their cart
+Get Items - gets all items that are available in store
+Add Item to Cart - adds selected item to cart
 
 
 
@@ -3960,23 +4105,23 @@ tomo
 
 
 
+localhost:8084/product		- GET ALL products					- GET
+localhost:8084/product/123		-GET a single product
+localhost:8084/product/Lakme	- GET all products matching the productName
+
+
+@PathVariable
+--------------------
+is used to take parameters
+
+
+localhost:8084/product/123		- DELETE a single record				-DELETE
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Postman
+------------
+Tool to test Rest web services
 
 
 
