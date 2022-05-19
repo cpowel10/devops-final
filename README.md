@@ -4102,9 +4102,8 @@ Add Item to Cart - adds selected item to cart
 
 
 
-
-
-
+										HTTP methods
+localhost:8084/product/home
 localhost:8084/product		- GET ALL products					- GET
 localhost:8084/product/123		-GET a single product
 localhost:8084/product/Lakme	- GET all products matching the productName
@@ -4122,6 +4121,220 @@ localhost:8084/product/123		- DELETE a single record				-DELETE
 Postman
 ------------
 Tool to test Rest web services
+
+Save			
+	
+localhost:8084/product/		-Saving a single record	body {product}			-POST		
+
+Update
+localhost:8084/product/		-Update a single record	body {product}			-PUT
+
+
+Dev tools
+
+--------------
+live reload
+
+You need to enable the “Make project automatically” option. You can find it in Settings – Build, Execution, Deployment – Compiler
+Settings - Advanced settings - Allow auto make
+
+
+------------------
+Spring Core
+------------------
+DI /IOC
+
+
+bean	- spring will create if you specify by certain annotations, few are sterotypes annotations
+	- we can also create explicitly by @bean annotation
+
+
+
+@Bean
+	- used to create a bean in spring
+
+@Configuration
+	- annotates a class a configuration class
+
+@Autowired
+	- scans the container and auto inject the bean if it is available
+	- if the bean is not available --> 
+
+
+
+**@SpringBootApplication
+
+	@SpringBootApplication annotation indicates a configuration class that declares one or more @Bean methods and also triggers auto-configuration and component 
+
+
+
+com.revature.pms
+		Client/@SpringBootApplication
+
+
+
+
+		.model
+		/dao
+
+
+Stereotypes annotation
+	
+	@Component		- scan and creates a bean - treat
+	@Controller		- controller	- VIEWS
+	@Service			- service layer
+	@Repository		- DAO
+
+
+	@RestController		- JSON
+
+
+
+Exercies : 
+
+Create one classes
+
+		
+	Create a class and a method to check negative values
+
+	boolean checkNegativeValue(int)
+	{
+	}
+
+	
+use autowiring to inject the above class in productcontroller
+
+
+
+
+
+Spring JPA
+---------------------
+
+	Hibernate 
+		- framework ORM
+Java Persistence API
+	- use of this is to work with DB
+
+1. create product table	- not required	- automatically it will creates the table
+2. JpaRepository/CrudRepository		- provides lots of methods to work like save,update, delete
+
+
+
+
+
+Step 1 : update pom.xml with jpa dependency and also postgres dependency
+
+Stop your app :
+
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>2.6.7</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.3.5</version>
+</dependency>
+
+
+Once you restart , it will give some error, database not configured
+
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+
+Step 2: 
+
+configure database properties in application.properties
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=root
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.format_sql=true
+
+
+Step 3: Start your app and check the logs that you dont have any error
+
+
+Step 4: List some JPA annotation
+
+@Entity
+@Table
+@Id
+@Column
+
+
+
+
+JpaRepository
+----------------
+CrudRepository
+
+
+	- interface 
+	- which has the methods crud methods
+
+
+
+
+
+Service class 
+----------------
+
+
+HTTP Status Codes
+------------------------
+
+200	-OK
+400	- Bad Request
+404	- Not Found
+500	- Internal server error
+
+
+ResponseEntity 
+ Extension of HttpEntity that adds an HttpStatus status code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
