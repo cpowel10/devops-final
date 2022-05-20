@@ -4322,6 +4322,83 @@ ResponseEntity
 
 
 
+Logback
+
+Step 1:
+pom.xml
+
+
+<!-- SLF4J - API -->
+<dependency>
+<groupId>org.slf4j</groupId>
+<artifactId>slf4j-api</artifactId>
+<version>1.7.7</version>
+</dependency>
+
+<!-- logback -->
+<dependency>
+<groupId>ch.qos.logback</groupId>
+<artifactId>logback-classic</artifactId>
+<version>1.1.2</version>
+</dependency>
+<dependency>
+<groupId>ch.qos.logback</groupId>
+<artifactId>logback-core</artifactId>
+<version>1.1.2</version>
+</dependency>
+
+
+Step 2: 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
+
+
+The library defines 5 log levels: TRACE, DEBUG, INFO, WARN, ERROR;
+
+
+
+
+
+
+
+Spring JPA
+--------------------
+
+public List<Product> findByProductName(String productName);
+
+
+@Query 
+	- writing custom queries
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
