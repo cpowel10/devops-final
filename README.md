@@ -4446,6 +4446,146 @@ Agile,Scrum,Spring,SRE,Spring Projects, SDLC
 
 
 
+Day 17
+===========
+
+Docker
+
+Dockerfile
+
+	postgres
+	email
+	
+
+
+
+
+
+https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+hub.docker.com - register 
+
+
+
+
+
+docker run nginx
+
+
+open new command prompt
+
+
+docker ps
+
+docket images
+
+
+
+docker run --name mywebsite -p 8080:80 nginx
+
+Browser : localhost:8080
+
+
+download postgres image as well
+
+
+
+1) Stop nginx container
+2) Check the running container
+3) Check all the containers
+4) Delete the container
+5) Delete the nginx image
+6) donwload postgres image
+7) run the postgres image on port : 5433
+
+docker run --name ahmedpostgres1 -e POSTGRES_USER=tufail -e POSTGRES_PASSWORD=ahmed -p 5433:5432 -d postgres
+
+
+How you can dockerize your application :
+===================================
+
+Maven - dependencies	-pom.xml
+
+Generate the jar file
+
+Maven Lifecycle
+Validate, 
+Compile,
+ Test,
+ Package, 		- jar file / target folder
+Integration test, 
+Verify, 
+Install
+Deploy
+
+
+
+
+
+
+Use case : To dockerize our spring boot app 
+
+
+
+
+
+
+
+FROM openjdk:8
+EXPOSE 8080
+ADD target/demo-0.0.1-SNAPSHOT.jar demo.jar
+ENTRYPOINT [ "java", "-jar" , "/demo.jar"]
+
+
+
+
+
+
+
+Lunch break : 1:15 - 2:15 PM EST
+
+2:15 - Coding Assessment - 70 minutes
+
+
+
+
+
+Create Dockerfile in project root
+
+Step 1: 
+FROM openjdk:8
+EXPOSE 8080
+ADD target/revatureapp.jar demo.jar
+ENTRYPOINT [ "java", "-jar" , "/demo.jar"]
+
+
+Step2 :build the image
+ docker build -t springboot-demo-1.0 .
+
+Step3: Verify
+docker images
+
+
+Step 3: Run the image
+ docker run -p 8080:8080 springboot-demo-1.0 
+
+Browser : http://localhost:8080/demo/message
+
+
+
+
+
+
+
+
+
+
+
+
+Next QC : Monday , 30th May 2022. 2:00 - 4:00 PM EST Week3 and Week4 topics
+
+
+Monday - Holiday ?
 
 
 
@@ -4462,6 +4602,19 @@ Agile,Scrum,Spring,SRE,Spring Projects, SDLC
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+Actuator 
 
 
 
