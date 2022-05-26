@@ -4588,6 +4588,46 @@ Next QC : Monday , 30th May 2022. 2:00 - 4:00 PM EST Week3 and Week4 topics
 Monday - Holiday ?
 
 
+Docker
+Docker Compose
+
+
+
+
+
+
+Dockerfile
+
+
+FROM openjdk:8
+EXPOSE 8080
+ADD target/mohammadapp.jar app.jar
+ENTRYPOINT [ "java" , "-jar" , "/app.jar"]
+
+docker build -t springboot-mohammad-demo-1.0 .
+
+ docker run -p 8080:8080 springboot-mohammad-demo-1.0
+
+
+
+
+
+Docker Compose
+=================
+
+
+
+
+spring.data.jpa.user=root
+spring.data.jpa.password=root
+
+yml
+
+spring:
+data:
+		jpa:
+			user:root
+			password:root
 
 
 
@@ -4614,7 +4654,111 @@ Monday - Holiday ?
 
 
 
-Actuator 
+
+version: '2'
+
+services:
+  product-app:
+    image: 'spring-boot-revature-product-app:latest'
+    build:
+      context: ./
+    container_name: product-app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+** Difference between JpaRepository and CrudRepository
+
+
+
+
+
+Create a user with role CUSTOMER :
+
+localhost:8080/users	- POST
+
+
+{
+    "username":"mohammad",
+    "role":"CUSTOMER"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Actuator : Actuator is mainly used to expose operational information about the running application — health, metrics, info, dump, env, etc. 
+
+==============
+AWS RDS
+
+
+
+
+local postgres
+docker postgres
+cloud postgres ?
+
+
+AWS RDS
+
+
+postgres
+rootroot
+jdbc:postgresql://database-1.ctfccinh3r5l.us-east-1.rds.amazonaws.com:5432/postgres
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
