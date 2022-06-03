@@ -5403,6 +5403,222 @@ http_server_requests_seconds_count
 
 
 
+k8s (Kubernetes)
+===================
+
+container (Docker)
+
++ Orcechstration
+
+images/flower.svg
+Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.
+
+It groups containers that make up an application into logical units for easy management and discovery
+
+# Overview
+
+Kubernetes is a software solution for "Container Orchestration". We want to manage containers on a largew scale, such as representing groups of containers and as many instances of a single container as we can, as well as track them. 
+If they fail, we will want to quickly replace it. 
+As well as quickly scale up or down the number of instances. Among many other features.
+
+
+
+Docker swarm (lacks advanced features)
+Mesos (difficult to setup)
+
+
+Advantages of container orchestrations 
+1)scalable
+2) Prevent failure - replication
+3) manage containers in large scale
+4) This things you can do with simple configuration files
+
+
+Architecture of k8s
+----------------------
+
+API server - acts a front controller for k8s
+
+etcd keystore - distributed key store used by k8s for managing clusters. who is master node and who is the worker node(later)
+
+kubelet - is an agent which runs on every cluster. This is responsible for making sure that the containers are running as expected
+
+Container runtime : are the underlying software used to run containers. In our case  it is docker
+
+Controllers : are the brain behind the orchestration.Responds when the node containers are down.
+
+Scheduler : is responsible for distributing works/containers across multiple nods. It looks for newly created containers and assigns them the nodes
+
+
+
+-------
+Terms
+
+Nodes (minions) (a machine)
+cluster - set of nodes
+master - 
+worker 
+replica - copy of the instances
+
+
+Master			Worker
+
+APIServer		kubelet
+controller
+scheduler
+etcd 
+
+
+kubectl
+---------------
+is used to deploy and manage applications on k8s cluster
+get the cluster information
+
+Installation k8s
+
+Install kubectl
+Install minikube
+Install Oracle VM
+
+
+Virtualization - Enabled
+
+https://dl.k8s.io/release/v1.23.0/bin/windows/amd64/kubectl.exe
+
+Download Minikube
+https://minikube.sigs.k8s.io/docs/start/
+https://storage.googleapis.com/minikube/releases/latest/minikube-installer.exe
+
+minikube start --driver=virtualbox --no-vtx-check
+
+
+docker
+tcuser
+
+
+kubectl commands
+---------------------------------
+minikube status
+kubectl get nodes
+kubectl get deployments
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+kubectl get deployments
+
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+
+minikube service hello-minikube --url
+
+
+http://192.168.59.100:31822
+
+Browser : http://192.168.59.100:31822
+
+Your setup is fine and working
+
+Let's delete ::
+
+kubectl delete services hello-minikube
+kubectl delete deployment hello-minikube
+
+kubectl get pods
+
+
+k8s pods
+===============
+smallest deployable units that you can create and mange in k8s
+
+
+
+kubectl get pods
+
+project p1
+
+You have to upload your project into github
+
+
+
+
+Deploy your application in aws
+----------------------------------
+RDS
+EC2
+S3 Bucket
+
+Goal : I want application to be accessible by all. 
+
+Step 1: Goto AWS and create RDS and update our application
+
+username : postgres
+password : rootroot
+url : jdbc:postgresql://postgres.ctfccinh3r5l.us-east-1.rds.amazonaws.com:5432/postgres
+
+Test this connection via DBeaver
+
+Step 2 :
+
+Update these db details in your app and generate the jar file
+
+product-app-devops.jar
+
+Step 3 : Create S3 bucket in aws and upload your jar file
+
+
+https://revatureaws.s3.amazonaws.com/product-app-devops.jar
+https://fridaypartybucket.s3.amazonaws.com/product-app-devops.jar
+
+make it public 
+
+
+Step 4 : Create EC2 instances (Network->Edit - SSh to All traffic) and download this jar and execute 
+mynewawskey1
+3.93.177.19
+
+52.73.113.113
+ec2-52-73-113-113.compute-1.amazonaws.com:8084/product
+
+
+ec2-3-93-177-19.compute-1.amazonaws.com:8084/product
+sudo apt-get update
+----Install JRE
+ sudo apt install openjdk-8-jre-headless
+----Check JRE version
+java -version
+
+
+
+-----Get the jar file from S3
+wget https://revatureaws.s3.amazonaws.com/product-app-devops.jar
+
+ java -jar [Your-Jar]
+** This will start the tomcat server on 8084
+
+Postman :
+http://ec2-3-93-177-19.compute-1.amazonaws.com:8084/product
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

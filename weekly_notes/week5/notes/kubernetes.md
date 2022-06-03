@@ -1,6 +1,8 @@
 # Overview
 
-Kubernetes is a software solution for "Container Orchestration". We want to manage containers on a largew scale, such as representing groups of containers and as many instances of a single container as we can, as well as track them. If they fail, we will want to quickly replace it. As well as quickly scale up or down the number of instances. Among many other features.
+Kubernetes is a software solution for "Container Orchestration". We want to manage containers on a largew scale, such as representing groups of containers and as many instances of a single container as we can, as well as track them. 
+If they fail, we will want to quickly replace it. 
+As well as quickly scale up or down the number of instances. Among many other features.
 
 ## How it works
 
@@ -8,7 +10,8 @@ Clusters: A high-level organization unit for Kubernetes. Everything in Kubernete
 Generally, you might only have 1 cluster per global region.
 Or perhaps, you might have a cluster per datacenter.
 
-One of our nodes will run the Kubernetes Control Plane and act as the manager of all of the nodes. The rest will be worker nodes.
+Master : One of our nodes will run the Kubernetes Control Plane and act as the manager of all of the nodes. 
+Worker : The rest will be worker nodes.
 
 ## Kubernetes Control Plane
 
@@ -28,6 +31,12 @@ This is our main entrypoint to our cluster.
 - Kube-dns
     - DNS specifically for locating Kubernetes objects
     - Allows Kubernetes objects (services) to have separate IP Addresses from the node they operate on
+
+
+
+
+
+
 
 ### Desired State
 
