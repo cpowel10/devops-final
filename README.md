@@ -4746,6 +4746,665 @@ rootroot
 jdbc:postgresql://database-1.ctfccinh3r5l.us-east-1.rds.amazonaws.com:5432/postgres
 
 
+Day 21
+
+QC 2:00 - 4:00 PM EST
+Lunch 1:00 - 2:00 
+
+Grafana 
+Prometheus
+
+What ?
+Why ?
+
+SRE
+
+Monitoring
+
+
+
+Grafana provides a way to visualize that data through graphs and level of reporting and alerting.
+Grafana doesnt have any data, it bhas to extract the data , it has to extract data from all data sources like mysql, loki, promethues,
+
+
+Organizations utilizez Grafana for monitoring logs
+
+Docker
+AWS
+
+
+Dashbaord Versioning 
+-------------------------------
+
+
+
+
+QC:
+
+Spring
+============
+What is spring and why we need spring for our projects ?
+
+The Spring Framework is an inversion of control container that provides flexible infrastructural support to create loosely coupled Java applications by utilizing dependency injection.
+
+Spring an umbrella term for a family of frameworks which can be utilized to rapidly create loosely coupled Java applications.
+
+
+IOC
+DI
+Autowire
+
+@Configuration
+@Autowire
+@Service
+@Repository
+@Component
+
+Constructor Injection: Dependency Injection accomplished when the container invokes a constructor with arguments to instantiate a bean in which each argument of said constructor represents a dependency.
+Setter Injection: Dependency Injection accomplished when the container calls setter methods on a bean after invoking a no-argument constructor to instatiate a bean.
+
+path variable vs request param
+
+The @RequestParam is used to extract query parameters while @PathVariable is used to extract data right from the URI.
+
+AOP
+====
+
+point cut
+join point
+
+
+n Aspect Oriented Programming, the key component are aspects, which modularizes particular transactional concerns which can present across multiple classes, known as cross-cutting concerns.
+
+Examples of these concerns are, Database Access (security for a database), data entities (transactions to take place), error handling, or logging system messages. 
+
+ Aspect Oriented Programming works to eliminate this redundancy by transferring responsibility of these common problems to aspects
+
+
+Aspect - A representation of a concern which cuts across multiple classes.
+Weaving - The process of linking aspects with other objects, such as beans, to create advised objects. This can be done at compile time (such as when using the AspectJ compiler), load time or runtime. Spring performs weaving at Runtime.
+Join Point - A specified moment during the execution of a program, such as the invocation of a method, in which actions can be taken.
+_Advice _ - Action taken by an aspect at a specified Join point.
+Pointcut - A definition of which methods in our application advice ought to be injected into or around, for example, when a method of a certain name is executed. By default, spring uses AspectJ pointcut expression language.
+Introduction - Declaration of new interfaces and corresponding implementations in subclasses of any advised object. Introductions use the @DeclareParents annotation with the defaultImpl attribute to define a default concrete class for the bean definition. For Example:
+
+==========================
+
+What Is Scrum in Agile?
+Scrum is a framework of rules, roles, events, and artifacts used to implement Agile projects. It is an iterative approach, consisting of sprints that typically only last one to four weeks. This approach ensures that your team delivers a version of the product regularly. 
+
+Scrum was designed using a software model that follows a set of roles, responsibilities, and meetings. It can be used for any complex project but works best when the result is a concrete product rather than a service.
+
+Scrum in Agile requires particular roles and responsibilities, including the following:
+
+Product owner: The product owner is responsible for representing the customer’s best interest. This person has the ultimate authority over the final product.
+Scrum master: This person is a facilitator, responsible for arranging the daily meetings, improving team interactions, and maximizing productivity. The project manager often takes on the role of Scrum master, but they can delegate it to anyone on the team who is a Scrum expert and strong facilitator. 
+Backlog: The backlog is a list of tasks and requirements included in the final product. It’s the responsibility of the product owner to create the backlog. 
+Sprint: A sprint is a set time frame for completing each set of tasks from the backlog. Every sprint should be the same length. Two weeks is typical, but a sprint can be anywhere between one to four weeks long, depending on the team and project’s needs.  
+Daily meetings: A Scrum project team is expected to meet every day to discuss progress. These meetings are typically referred to as a Daily Scrum or Daily Stand-Up.
+Retrospective: Each sprint should end with a review meeting, called a retrospective. Here, the team reviews their progress and discusses how they can improve in the next sprint.
+
+===================SDLC
+
+SDLC ?
+What is SDLC ?
+SDLC is a disciplined and systematic approach that divides the software development process into various phases, such as requirements, design, and coding. 
+The phase-wise software development process helps you track schedule, cost, and quality 
+
+
+What are the different phases of SDLC ?
+There are six phases of SDLC:
+Feasibility analysis 
+Requirement analysis and specification
+Design 
+Coding 
+Testing 
+Maintenance
+
+
+Waterfall approach : Describes the software development process in a linear sequential flow. 
+Is the earliest approach used for software development.
+
+
+
+1.  What are Spring Projects and Spring Modules?
+	Use Spring Boot to build a Web Application. ...
+	Create REST Service for an Education Site. ...
+	Create an Employee Management System (Using Spring Boot and Thymeleaf) ...
+	Work on the Open-source Project Sagan. ...
+	Create a Web App with Spring Boot Starter Web. ...
+	Use LDAP to Authenticate a User.
+    
+    Spring's Web module provides basic web-oriented integration features, such as multipart file-upload functionality, the initialization of the IoC container 
+    using servlet listeners and a web-oriented application context. It also contains the web related parts of Spring's remoting support
+    
+2.  What is IOC and what does the IOC Container do?
+    
+3.  What is dependency injection and what are some of the benefits of using dependency injection?
+    
+4.  What types of dependency injection does Spring support?
+    two types DI
+	setter
+	constructpr
+5.  What are some differences between BeanFactory and ApplicationContext? Which one eagerly instantiates your beans?
+    
+    The ApplicationContext comes with advanced features, including several that are geared towards enterprise applications,
+    while the BeanFactory comes with only basic features. Therefore, it's generally recommended to use the ApplicationContext, and we should use BeanFactory only 
+    when memory consumption is critical.0
+    
+    BeanFactory will create a bean object when the getBean() method is called thus making it Lazy initialization.	
+    ApplicationContext loads all the beans and creates objects at the time of startup only thus making it Eager initialization.
+    
+    
+6.  What is the Spring Bean lifecycle?
+    
+7.  What is bean wiring? What about autowiring?
+    
+8.  What are the different ways that Spring can wire beans?
+    ByName,
+	ByType
+	construtor
+9.  What are the scopes of Spring beans? Which is default?
+    
+10.  What is the concept of component scanning and how would you set it up?
+    
+11.  What are the benefits and limitations of Java configuration?
+    
+12.  What does the @Configuration and @Bean annotations do?
+    
+13.  What is @Value used for?
+    
+14.  What is Spring Expression Language? What can you reference using SpEL? What is the difference between $ and # in @value expressions?
+    
+
+### Spring MVC
+
+15.  Explain the MVC architecture and how HTTP requests are processed in the architecture
+    
+16.  What is the role of the DispatcherServlet? What about the ViewResolver?
+    
+17.  *** List some stereotype annotations. What are the differences between these?
+    
+18.  How would you declare which HTTP requests you’d like a controller to process?
+    
+19.  What is the difference between @RequestMapping and @GetMapping?
+    
+20.  How to declare the data format your controller expects from requests or will create in responses?
+    
+21.  What annotation would you use to bypass the ViewResolver?
+    
+22.  How would you extract query and path parameters from a request URL in your controller?
+    
+23.  What concerns is the controller layer supposed to handle vs the service layer?
+    
+24.  How would you specify HTTP status codes to return from your controller?
+    
+25.  How do you handle exceptions thrown in your code from your controller? What happens if you don’t set up any exception handling?
+    
+26.  How would you consume an external web service using Spring?
+    
+27.  What are the advantages of using RestTemplate?
+    
+
+### Spring AOP
+
+28.  What is “aspect-oriented programming”? Define an aspect.
+    
+29.  Give an example of a cross-cutting concern you could use AOP to address
+    
+30.  Define the following:
+    
+
+*  Join point
+    
+*  Pointcut
+    
+*  Advice
+Types of advice
+    Before
+    After
+   Around
+   Throws
+
+31.  What are the different types of advice? What is special about the @Around advice? How is the ProceedingJoinPoint used?
+    
+33.  Explain the pointcut expression syntax
+    
+34.  What visibility must Spring bean methods have to be proxied using Spring AOP?
+    
+
+### Spring Data
+
+34.  What is Spring ORM and Spring Data?
+    
+35.  What is the Template design pattern and what is the JDBC template?
+    
+36.  What does @Transactional do? What is the PlatformTransactionManager?
+    
+37.  What is a PersistenceContext?
+    
+38.  Explain how to integrate Spring and Hibernate using ContextualSession
+    
+39.  What interfaces are available in Spring Data JPA?
+    
+40.  *** What is the difference between JPARepository and CrudRepository?
+    
+41.  What is the naming conventions for methods in Spring Data repositories?
+
+findBy
+    
+42.  How are Spring repositories implemented by Spring at runtime?
+    
+43.  What is @Query used for?
+    
+
+### Spring Boot
+
+What is the advantage of spring boot ?
+
+
+44.  How is Spring Boot different from legacy Spring applications? What does it mean that it is “opinionated”?
+    
+45.  What does “convention over configuration” mean?
+    
+46.  What annotation would you use for Spring Boot apps? What does it do behind the scenes?
+    @SpringBootApplication
+47.  How does Boot’s autoconfiguration work?
+    
+48.  What is the advantage of having an embedded Tomcat server?
+    
+49.  What is the significance of the Spring Boot starter POM?
+    
+50.  What is the Spring Boot actuator? What information can it give you?
+    
+51.  What files would you use to configure Spring Boot applications?
+    
+
+
+
+***Spring profiles
+52.  What is the benefit of using Spring Boot profiles?
+
+
+Grafana
+Create Dashboard
+
+Loki
+-----------
+Loki
+
+
+Promtail
+
+
+
+
+
+
+
+
+images
+containers	- container
+	
+push
+pull
+
+
+docker
+========
+yml or yaml files
+
+
+
+application.yml
+
+server:
+  port: 8085
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    generate-ddl: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+
+
+
+
+
+
+
+
+
+
+Loki	- log aggregation tool 
+
+nssm  - a tool to create window service
+nssm start <servicename>
+nssm restart <servicename>
+nssm delete <servicename>
+
+
+sudo start service <servicename>
+
+
+nssm https://github.com/grafana/loki/releases/download/v2.5.0/loki-windows-amd64.exe.zip
+https://nssm.cc/release/nssm-2.24.zip
+
+loki 
+
+
+
+
+Promethues
+
+
+https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.windows-amd64.zip
+
+
+Loki 		vs		 	Prometheus
+ reading log files				metrics/numbers
+relies on promtail for getting the data		request data from node exporter
+
+
+
+
+More - Promethues
+
+PromQL
+How you can add another metrics	-windows metrics
+Alerts
+Notifications
+Alert Manager
+gmail conf
+Sprng Boot		http://localhost:8084/product	-GET
+
+
+
+Kubernetes
+=============
+
+
+# Prometheus
+
+## What is it?
+
+Prometheus is a Systems monitoring and alerting toolkit. It supports a highly dimensional data model, and stores as time series. With this in mind, Prometheus also acts as a Time Series Database.
+
+http requests - 
+
+http_requests_total(method="get")
+
+metric name	 key         value
+
+## What are its features?
+- Supports PromQL (Prometheus Query Language) that allows highly customized queries to select metrics to visualize.
+    - Has 4 primary types:
+        - Instant Vectors
+        - Range Vectors
+        - Scalars
+        - Strings	- very rarely used  "hello"
+    - Has 4 metric types:
+        - Gauge
+        - Summary
+        - Counter
+        - Histogram
+- Has a pull model over HTTP
+    - Prometheus will "scrape" metrics from other sources at configured intervals
+    - The default path that prometheus looks for is `/metrics` unless configured otherwise
+- Supports a push model if needed for certain use-cases
+    - Examples would be batch jobs that would not exist long enough to be scraped
+    - In these scenarios, we can export the data directly to Prometheus through its `PushGateway`
+
+## Pull vs Push Model
+
+Each has their own pros/cons. Neither is necessarily better than the other.
+
+Some pros of pull model:
+- Services do not have to worry about packet loss'
+- Don't have to worry about the location of prometheus
+
+Some downsides of pull model:
+- Services must exist long enough to be pulled from
+
+### Understanding Prometheus Data Model
+
+Prometheus' Highly dimensional data model can be quite difficult to wrap your mind around.
+
+The perspective that I personally find most helpful is to think of metrics as 2-dimensional arrays
+- For each metric, we have an array of labels/sources/tags
+- Each of these arrays is itself an array, which consists of the metric's values over time
+
+When we perform operations/functions, such as `sum` or `rate`, we must keep this dimensionality in mind.
+`sum` expects an `Instant Vector`. This means, it wants only a single value across all of the different labels. `sum` will then add up all of those values, with a result of type `Counter` across all labels.
+
+`rate` expects a Range Vector. For each label, it wants to compute a Counter that represents the "rate" of the counter over some time range. For example, the rate of some metric over the last 5m. This will output an Instant Vector.
+
+#### Examples
+
+```
+sum(rate(container_cpu_usage_seconds_total{container="fluentd"}[5m]))
+```
+
+In the above case, we start from the `container_cpu_usage_seconds_total` metric. By using the `[5m]` timesacele, we obtain a Range Vector.
+
+We further filter the `container_cpu_usage_seconds_total` metric to only include time-series that had the label of `container="fluentd"`. The result still has multiple labels. But for each metric, the value for the `container` label will definitely be `fluentd`. We are not removing labels, just filtering based on labels.
+
+We then use the `rate` function on the provided Range Vector. This produces an Instant Vector in response. We finally use the `sum` function on the Instant Vector, getting a `Counter`.
+
+Grafana will provide a Graph as well that shows what the result of this calculation would have been at different evaluation times.
+
+```
+sum(container_cpu_usage_seconds_total) by (container)
+```
+
+In the above case, we used the `sum` function on the `container_cpu_usage_seconds_total` metric to obtain a `Counter` that is the sum of all of the labels.
+
+We then group the sum based on the value of the `container` label. This results in a Instant Vector, for the different values of the `container` label. Each time-series will have the sum across all of the other labels.
+
+Once again, we get a graph that shows what the values would have been at different evaluation times.
+
+In this particular example, one of the labels for `container`, the empty string (which represents the lack of a value for that label) had a far higher sum than all of the labeled time-series. With this in mind, we might want to choose to filter out that one time-series.
+
+We can do so, by adding a selector against the `container` label, to not include the empty string.
+
+```
+sum(container_cpu_usage_seconds_total{container!=""}) by (container)
+```
+
+
+
+
+windows exporter
+---------------------------
+
+download the wmi
+https://github.com/prometheus-community/windows_exporter/releases
+
+https://github.com/prometheus-community/windows_exporter/releases/download/v0.18.1/windows_exporter-0.18.1-386.msi
+
+
+configure the promethues.yml
+restart your promethues
+
+
+
+SERVICE_PAUSED in response to START control. again
+
+** You have error in yaml/yml file
+
+
+
+PromQL - query language
+
+matchers
+selectors
+operators
+
+process_cpu_seconds_total{job="wmi_exporter",instance="localhost:9182"}
+
+
+process_cpu_seconds_total{job!="wmi_exporter"}
+
+regular expressions - *
+
+prometheus_http_requests_total{handler=~"/api.*"}
+
+prometheus_http_requests_total{handler !~"/api.*"}
+
+
+
+
+
+prometheus_http_request_duration_seconds_count 	- count only for metrics
+
+
+
+
+prometheus_http_requests_total
+
+ignoring - allows us to ignore certain matchers
+on keyword allows the limiting the labels from the specified 
+
+
+prometheus_http_requests_total or promhttp_metric_handler_requests_total 
+
+
+prometheus_http_requests_total{code="200", handler="/api/v1/metadata", instance="localhost:9090", job="prometheus"}
+7
+prometheus_http_requests_total{code="200", handler="/api/v1/query", instance="localhost:9090", job="prometheus"}
+30
+prometheus_http_requests_total{code="200", handler="/api/v1/series", instance="localhost:9090", job="prometheus"}
+12
+prometheus_http_requests_total{code="200", handler="/metrics", instance="localhost:9090", job="prometheus"}
+108
+prometheus_http_requests_total{code="400", handler="/api/v1/query", instance="localhost:9090", job="prometheus"}
+5
+promhttp_metric_handler_requests_total{code="200", instance="localhost:9090", job="prometheus"}
+108
+promhttp_metric_handler_requests_total{code="500", instance="localhost:9090", job="prometheus"}
+0
+promhttp_metric_handler_requests_total{code="503", instance="localhost:9090", job="prometheus"}
+
+
+
+
+promhttp_metric_handler_requests_total and ignoring(handler) prometheus_http_requests_total
+
+promhttp_metric_handler_requests_total{code="200", instance="localhost:9090", job="prometheus"}
+
+promhttp_metric_handler_requests_total or on(code) prometheus_http_requests_total
+
+
+
+
+
+topk(1,sum(prometheus_http_requests_total) by (code))
+
+
+
+Alerting
+--------------
+
+
+Examples of alerts : Free node memoeryh should not be less than 20%
+
+Rules
+
+Alert Manager	- sending notifitaions - gmail, slack 
+
+
+https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.windows-amd64.zip
+
+
+fie Email alerts using alert manager
+
+SMTP
+
+to	: tufailahmedkhan@gmail.com
+from	: ta5005128@gmail.com
+
+open alertmanager.yml
+
+route:
+  receiver: admin
+
+receivers:
+- name: admin
+  email_configs:
+  - to: 'tufailahmedkhan@gmail.com'
+    from: 'ta5005128@gmail.com'
+    smarthost: smtp.gmail.com:587
+    auth_username: 'ta5005128@gmail.com'
+    auth_identity: 'ta5005128@gmail.com'
+    auth_password: 'uucvkpsmnpsfblfr'
+
+
+
+
+
+Configure your to email smtp and please generate the password
+
+
+Alert is Fired, then email will be sent
+
+
+
+Spring boot - Monitoring using prometheus
+
+Use case : How many times localhost:8084/product	- GET	is getting invoked
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+  <scope>runtime</scope>
+</dependency>
+
+
+application.properties
+
+management.endpoints.web.exposure.include=health,info,prometheus
+
+postman
+
+http://localhost:8084/actuator/prometheus
+
+
+ - job_name: 'spring boot scrape'    metrics_path: '/actuator/prometheus'    scrape_interval: 5s    static_configs:      - targets: ['localhost:8084’]
+
+
+http_server_requests_seconds_count
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
