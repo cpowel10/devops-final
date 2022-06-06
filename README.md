@@ -5408,7 +5408,7 @@ k8s (Kubernetes)
 
 container (Docker)
 
-+ Orcechstration
++ Orcechestration
 
 images/flower.svg
 Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.
@@ -5428,7 +5428,7 @@ Mesos (difficult to setup)
 
 
 Advantages of container orchestrations 
-1)scalable
+1) scalable
 2) Prevent failure - replication
 3) manage containers in large scale
 4) This things you can do with simple configuration files
@@ -5492,8 +5492,8 @@ https://storage.googleapis.com/minikube/releases/latest/minikube-installer.exe
 minikube start --driver=virtualbox --no-vtx-check
 
 
-docker
-tcuser
+username : docker
+password : tcuser
 
 
 kubectl commands
@@ -5594,6 +5594,338 @@ wget https://revatureaws.s3.amazonaws.com/product-app-devops.jar
 
 Postman :
 http://ec2-3-93-177-19.compute-1.amazonaws.com:8084/product
+
+
+
+** for in alert manager
+------------------------------
+
+
+it will wait before firing an alert
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+minikube update-context
+
+
+minikube start --driver=virtualbox --no-vtx-check
+
+
+
+
+
+C:\WINDOWS\system32>minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+
+C:\WINDOWS\system32>kubectl get nodes
+NAME       STATUS   ROLES                  AGE    VERSION
+minikube   Ready    control-plane,master   101s   v1.23.3
+
+C:\WINDOWS\system32>kubectl get deployments
+No resources found in default namespace.
+
+C:\WINDOWS\system32>kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   2m18s
+
+C:\WINDOWS\system32>kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+deployment.apps/hello-minikube created
+
+C:\WINDOWS\system32>kubectl get deployments
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+hello-minikube   0/1     1            0           23s
+
+C:\WINDOWS\system32>kubectl get deployments
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+hello-minikube   0/1     1            0           36s
+
+C:\WINDOWS\system32>kubectl expose deployment hello-minikube --NodePort --port 8080
+Error: unknown flag: --NodePort
+See 'kubectl expose --help' for usage.
+
+C:\WINDOWS\system32>kubectl expose deployment hello-minikube --type=NodePort --port 8080
+service/hello-minikube exposed
+
+C:\WINDOWS\system32>kubectl get deployments
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+hello-minikube   1/1     1            1           2m20s
+
+C:\WINDOWS\system32>kubectl get services
+NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+hello-minikube   NodePort    10.96.137.217   <none>        8080:32051/TCP   24s
+kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP          6m11s
+
+C:\WINDOWS\system32>minikube service hello-minikube --url
+http://192.168.59.108:32051
+
+C:\WINDOWS\system32>kubectl get services
+NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+hello-minikube   NodePort    10.96.137.217   <none>        8080:32051/TCP   67s
+kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP          6m54s
+
+C:\WINDOWS\system32>kubectl delete services hello-minikube
+service "hello-minikube" deleted
+
+C:\WINDOWS\system32>kubectl delete deployments hello-miikube
+Error from server (NotFound): deployments.apps "hello-miikube" not found
+
+C:\WINDOWS\system32>kubectl delete deployment hello-miikube
+Error from server (NotFound): deployments.apps "hello-miikube" not found
+
+C:\WINDOWS\system32>kubectl delete deployment hello-minikube
+deployment.apps "hello-minikube" deleted
+
+C:\WINDOWS\system32>kubectl get pods
+NAME                              READY   STATUS        RESTARTS   AGE
+hello-minikube-7bfc84c94b-bldr8   1/1     Terminating   0          31m
+
+C:\WINDOWS\system32>kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   34m
+
+C:\WINDOWS\system32>kubectl get deployments
+No resources found in default namespace.
+
+
+C:\WINDOWS\system32>
+
+Pods
+==============
+
+smallest deployable units of computing that you can create and manage in k8s.
+Remember NPC  (Node -> Pod --> Container)
+
+**Each pod has unique IP address
+
+
+--------------Creating pods using yaml files
+k8s yaml files 
+
+Top level 4
+			pod,service	replicaset,deployment
+apiVersion:		v1,v1,		apps/v1,apps/v1
+
+kind:			service,pod
+Metadata:  [dictionary]
+	name: myapp-pod
+	labels:
+	     app:myapp
+spec: 
+	containers(List/Array)
+	-name: nginx-container
+	 image: nginx
+
+
+Use case : We want to create a pod using yaml files
+
+Step : Create pod.yaml
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    tier: frontend
+spec:
+  containers:
+    -  name: nginx
+       image: nginx
+
+
+
+:\>cd k8sdemo
+
+H:\k8sdemo>cd pods
+
+H:\k8sdemo\pods>dir
+ Volume in drive H is Work
+ Volume Serial Number is F0C2-D241
+
+ Directory of H:\k8sdemo\pods
+
+06-06-2022  21:09    <DIR>          .
+06-06-2022  21:09    <DIR>          ..
+06-06-2022  21:17               161 pod.yaml
+               1 File(s)            161 bytes
+               2 Dir(s)  111,407,583,232 bytes free
+
+H:\k8sdemo\pods>kubectl apply -f pod.yaml
+pod/nginx created
+
+H:\k8sdemo\pods>kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          13s
+
+
+==================
+Kuberenetes Controller (RC)
+
+Replication Controller (RC)
+helps us run multiple instances of a single POD in k8s cluster .. thus providing high availiabilty.
+
+load balancing and scaling.
+
+Replica Set
+-------------new way of replication in k8s
+
+
+
+
+			pod,service	replicaset,deployment
+apiVersion:apps/v1		v1,v1,		apps/v1,apps/v1
+
+kind:		replicaSet	
+Metadata:  [dictionary]
+	name: myapp-pod
+	labels:
+	     app:myapp
+spec: 
+	containers(List/Array)
+	-name: nginx-container
+	 image: nginx
+
+	template:
+
+	replicas : 6
+
+
+	selector: ** this is new 
+
+
+selector: helps to identify what pod falls under it ?
+
+Why would we have to specify this ?
+Ans : replicaset can also manages the pods that were created as part of the replicaset creation (details later)
+
+
+Use case : We want to create replicaset file to create 6 replicas of my nginx 
+
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas : 6
+  template:
+    metadata:
+      name: nginx-2
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+              
+
+
+https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#how-a-replicaset-works
+
+
+Another way :
+
+kubectl edit replicaset myapp-replicaset
+
+
+
+https://docs.google.com/spreadsheets/d/1t7KpwSPPmpy1ij6IjmcrNXU5i29ngo0oqcFWUTjo1Vs/edit?usp=sharing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

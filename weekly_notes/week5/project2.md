@@ -13,7 +13,7 @@ Each team will follow an Agile approach, and track needed tasks with JIRA. Daily
 It is recommended to track the team's velocity.
 
 ## Deadline
-June 17th, 2022
+June 20th, 2022
 
 ## Requirements
 
