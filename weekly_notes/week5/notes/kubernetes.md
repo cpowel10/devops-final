@@ -142,7 +142,7 @@ These are the core components that each node will need to operate Kubernetes (to
         - The implementation is different from docker, but the result is the same
 
 ## Types of Services
-- ClusterIP
+- ClusterIP (Default)
     - Will make a service for a set of pods and give them one static ip address, but this address will only be accessible inside the cluster
     - This won't be a _real_ IP address, it is one that only exists through kube-dns
     - There is no external IP Address

@@ -5863,116 +5863,311 @@ kubectl edit replicaset myapp-replicaset
 
 https://docs.google.com/spreadsheets/d/1t7KpwSPPmpy1ij6IjmcrNXU5i29ngo0oqcFWUTjo1Vs/edit?usp=sharing
 
+==================================================================================================
 
 
+Creating DemoService and creating deployments for that.
 
+H:\k8sdemo\DemoService
 
+Generate the jar file
+Create docker image
+Push docker image to docker hub
 
 
+docker build -t demoservice:latest .
 
+docker login
 
+H:\k8sdemo\DemoService>docker tag demoservice:latest 8867205331/dockerhub:demoservice
 
+H:\k8sdemo\DemoService>docker push 8867205331/dockerhub:demoservice
 
+Your docker image should be in the docker hub
 
 
+Create demo-deployment.yml
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    app: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+      - name: demo
+        image: 8867205331/dockerhub:demoservice
+        ports:
+        - containerPort: 8080
+        #imagePullPolicy: Never
+        # livenessProbe:
+        # readinessProbe:
 
 
+H:\k8sdemo>kubectl create -f demo-deployment.yml
+deployment.apps/demo-deployment created
 
 
+H:\k8sdemo>kubectl get deployments
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+demo-deployment   2/2     2            2           96s
 
+H:\k8sdemo>kubectl get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+demo-deployment-5987cf6f74-wtc78   1/1     Running   0          107s
+demo-deployment-5987cf6f74-x4ppn   1/1     Running   0          107s
 
+H:\k8sdemo>kubectl expose deployment demo-deployment --type=NodePort --port=8080
+service/demo-deployment exposed
 
+H:\k8sdemo>minikube service demo-deployment --url
+http://192.168.59.109:32636
 
+H:\k8sdemo>kubectl get svc
+NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+demo-deployment   NodePort    10.103.246.182   <none>        8080:32636/TCP   5m8s
+kubernetes        ClusterIP   10.96.0.1        <none>        443/TCP          16m
 
 
+http://192.168.59.109:32636/hello
 
+Done!!
 
 
+Deployments
+==================
+create deployment.yaml
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    tier: frontend
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 6
+  template:
+    metadata:
+      name: nginx-2
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+      
 
 
+kubectl create -f deployments.yaml
 
 
+updates and rollback in deployments
+--------------------------------------------
 
+rollout and versioning
 
+revision 1
+new rollout revision 2
 
+??helps ypu to rollback particular revision
 
+kubectl rollout status myapp-deployment
+kubectl rollout history myapp-deployment
 
 
+deployment strategies :
+1) destroy all the replicas at once then create 3 new replicas
 
+2) rolling update ( defaut deployment strategy )
 
+Use case : nginx
 
 
+=========================================================
 
+H:\k8sdemo\deployment>kubectl create -f deployments.yaml
+deployment.apps/myapp-deployment created
 
+H:\k8sdemo\deployment>kubectl rollout status deployment.apps/myapp-deployment
+Waiting for deployment "myapp-deployment" rollout to finish: 0 of 6 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 1 of 6 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 2 of 6 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 3 of 6 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 4 of 6 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 5 of 6 updated replicas are available...
+deployment "myapp-deployment" successfully rolled out
 
+H:\k8sdemo\deployment>kubectl rollout history deployment.apps/myapp-deployment
+deployment.apps/myapp-deployment
+REVISION  CHANGE-CAUSE
+1         <none>
 
+=========================================================
 
+1. 1.1.17
+2. 1:18
+3. 1.18-perl
 
 
+kubectl create -f deployments.yaml
 
+kubectl rollout status deployment.apps/myapp-deployment
 
+kubectl rollout history deployment.apps/myapp-deployment
 
+kubectl create -f deployments.yaml --record
 
+kubectl rollout history deployment.apps/myapp-deployment
 
+kubectl describe deployment myapp-deployment
 
+kubectl set image deployment myapp-deployment nginx=nginx:1.18-perl --record=true
 
+kubectl rollout undo deployment.apps/myapp-deployment
 
+Please allow your cohort to join the portfolio orientation scheduled between 10:30 AM EST and 11 AM EST on Wednesday 6/8/2022.
 
+Also, forward the zoom link attached in the calendar invite.
 
+Dharshanaa Kamaraj is inviting you to a scheduled Zoom meeting.
 
+Topic: Dharshanaa Kamaraj's Zoom Meeting
+Time: Jun 8, 2022 08:00 PM India
 
+Join Zoom Meeting
+https://revature.zoom.us/j/86096960143?pwd=dnNCVVMwN3VGUFVKZTJ2TGt4U1RlZz09
 
 
+====================================================================
 
+Services in k8s
+---------------------
+	Use cases : External configuration
 
 
 
+192.168.78.8	- node	
+192.168.88.8	- my laptop
+internal pod 	10.244.0.0	10.244.0.2
+10.244.0.2 XXX - Your laptop
 
 
 
 
+This type of service is known as NodePort
 
 
+Types of services:
+	Nodeport
+		External access to the application
+		
+	ClusterIP
+	Load Balancer
 
 
 
+service-definition.yaml
 
+apiVersion: v1
+Kind: service
+Meta-Data
+	type:NodePort
+	spec:(most crucial and differs)
+		-targetPort:80
+		*-port:
+		nodePort:30008	30000 - 32767
 
 
+	selector:
+		app:myapp
+		type: front-end
 
+kubectl get service
+kubectl create -f service-definition.yaml
 
 
 
+Service - Multiple Pods(6) in a single node
+All will have same labels
+K8s will :
+the service automatically selects 6 pods as the endpoints for the external requests. 
+You don’t have to do any additional configuration to make this happen. 
+Load balancing will happen. It uses Random Algorithm.
+Thus it acts as distributed load balancer.
 
+What happens when pods are there in different nodes.
 
+K8s automatically creates a service to include all the 36.
 
+No configuration change is required.
 
+Any changes gets automatically gets reflected.
 
 
+Demo for service
 
+deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    tier: frontend
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 6
+  template:
+    metadata:
+      name: nginx-2
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.7.1
+      
 
+service-definition.yml
 
 
 
+----------------
 
 
+H:\k8sdemo\deployment>kubectl create -f deployments.yaml
+deployment.apps/myapp-deployment created
 
 
+H:\k8sdemo\deployment>cd..
 
+H:\k8sdemo>cd services
 
+H:\k8sdemo\services>kubectl create -f service-definition.yml
+service/myapp created
 
 
+H:\k8sdemo\services>minikube service myapp --url
+http://192.168.59.109:30004
 
 
-
-
-
-
-
-
-
+http://192.168.59.109:30004	- Browser 
 
 
 
