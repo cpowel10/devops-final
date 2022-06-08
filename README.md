@@ -1,3 +1,5 @@
+minikube start --driver=virtualbox --no-vtx-check
+
 https://revature.zoom.us/j/7841280666
 
 Day 1
@@ -6146,6 +6148,18 @@ spec:
 
 service-definition.yml
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30004
+  selector:
+    app: myapp
 
 
 ----------------
@@ -6168,6 +6182,47 @@ http://192.168.59.109:30004
 
 
 http://192.168.59.109:30004	- Browser 
+
+
+
+
+
+------------------------Jenkins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
