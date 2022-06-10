@@ -6184,10 +6184,306 @@ http://192.168.59.109:30004
 http://192.168.59.109:30004	- Browser 
 
 
+Maven- jar plugin
+
+<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.revature.pms.PmsSpringBootApplication</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+
+			</plugin>
 
 
 
 ------------------------Jenkins
+
+Jenkins in an Open-Source Automation Server. It helps automate the building, testing, and deployment of an application for continuous integration and delivery.
+
+It supports the development of CI/CD or DevOps "Pipelines".
+
+Use case : We want to automate the process of deployment for our demo service app
+
+https://www.jenkins.io/download/
+https://get.jenkins.io/war-stable/2.332.3/jenkins.war
+
+
+
+
+java -jar jenkins.jar --port 9090 
+
+
+
+Tools required :
+JDK1.8			C:\Program Files\Java\jdk1.8.0_202
+Git installed		C:\Program Files\Git
+Maven installed		H:\apache-maven-3.8.2-bin\apache-maven-3.8.2
+Jenkins Installed		Already installed jsut now
+
+
+Next Step  : Configure Jenkins -> Manage plugins --> Available --> git parameter --> Install without restart
+
+Successfully configured jenkins
+
+Next 
+==============
+Your-app
+upload your-app in git hub
+
+https://github.com/tufailahm/demo-service
+
+https://github.com/tufailahm/demo-service.git
+
+
+------------------------------------------------------
+H:\k8sdemo\DemoService>git init
+H:\k8sdemo\DemoService>git add .
+H:\k8sdemo\DemoService>git commit -m "first commit"
+H:\k8sdemo\DemoService>git branch -M master
+
+H:\k8sdemo\DemoService>git remote add origin https://github.com/tufailahm/demo-service.git
+
+H:\k8sdemo\DemoService>git push -u origin master
+
+
+
+
+
+demo spring boot
+
+Upload this in github
+Create a job in jenkins to build this project
+Change this project and add
+	@GetMapping("/guest")
+	public String guest(){
+		return "Hello Guest";
+	}
+
+commit this change and see whether it is automically build or not ?
+
+
+Build 1
+Build 2
+
+
+Jenkins
+Email Notification
+
+Download and install email plugin
+
+1)Email Extension Plugin
+2) Go to your gmail from where you want to send email
+ta5005128@gmail.com
+vwahdqigcysqhjot
+
+
+
+Configure smtp in your jenkins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Jenkins Pipeline
+
+
+starts with the devlopment 		and ends with production
+
+
+
+
+
+development							production
+
+
+retry in jenkins pipeline
+
+
+
+
+SECRET_PASSCODE	- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SonarLint - code quality
+Terraform
+Maven - Recap
+Git - Recap
+
+
+
+k8s - remaining topics
+
+
+
+
+
+
+
+
+
+Amazon Elastic Compute Cloud NatGateway$0.95
+$0.045 per GB Data Processed by NAT Gateways0.000004 GB$0.00
+$0.045 per NAT Gateway Hour21.000 Hrs$0.95
+Amazon Elastic Compute Cloud running Linux/UNIX$0.38
+$0.0416 per On Demand Linux t3.medium Instance Hour9.103 Hrs$0.38
+Amazon Elastic Compute Cloud T3CPUCredits$0.03
+$0.05 per vCPU-Hour of T3 CPU Credits0.576 vCPU-Hours$0.03
+EBS$0.00
+$0.00 per GB-month of General Purpose (SSD) provisioned storage under monthly free tier0.234 GB-Mo
+
+
+$2.30
+
+After you are done with EKS , make sure you delete EKS as well as from two other places :
+
+Delete NAT Gateways and elastic IP - Ohio -- Elastic IP can be accessed from EC2	-- Release IP
+https://us-east-2.console.aws.amazon.com/vpc/home?region=us-east-2#NatGateways:
+https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#Addresses:	- Delete
+
+
+
+
+Jenkins Pipeline
+---------------------------
+
+
+Pre requisite :
+Jenkins installed
+
+checklist 
+
+PATH
+JAVA_HOME
+Docker pipeline - plugin
+
+
+Maven
+Git
+
+Steps
+
+Build
+Test
+Deploy	-Docker hub	
+
+
+
+
+
+Maven
+------------
+compile
+test
+package
+install
+
+
+
+
+
+Next QC : Wednesday 
+
+15th June 10:00 EST
+
+Topics : Week5 and Week6
+
+------------------------------------
+
+
+Terraform
+=============
+
+
+Terraform	-
+
+terraform init
+terraform plan
+terraform apply
+terrform show
+
+after making the changes : terraform apply
+
+Verify
+
+to destroy : terraform destroy
+
+
+state in terraform
+=================
+
+commands 
+
+terraform validate
+
+
+==========Terraform - AWS======
+
+
+
+
+EC2
+Bucket
+IAM 	- create users/roles/policy
+
+
+
+AWS CLI	- simple utility --
+https://awscli.amazonaws.com/AWSCLIV2.msi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
