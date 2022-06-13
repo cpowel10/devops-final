@@ -5419,8 +5419,8 @@ It groups containers that make up an application into logical units for easy man
 
 # Overview
 
-Kubernetes is a software solution for "Container Orchestration". We want to manage containers on a largew scale, such as representing groups of containers and as many instances of a single container as we can, as well as track them. 
-If they fail, we will want to quickly replace it. 
+Kubernetes is a software solution for "Container Orchestration". We want to manage containers on a large scale, such as representing groups of containers and as many instances of a single container as we can, as well as track them. 
+**If they fail, we will want to quickly replace it. 
 As well as quickly scale up or down the number of instances. Among many other features.
 
 
@@ -6184,23 +6184,7 @@ http://192.168.59.109:30004
 http://192.168.59.109:30004	- Browser 
 
 
-Maven- jar plugin
-
-<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.revature.pms.PmsSpringBootApplication</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-
-			</plugin>
-
-
+!!
 
 ------------------------Jenkins
 
@@ -6361,26 +6345,6 @@ k8s - remaining topics
 
 
 
-Amazon Elastic Compute Cloud NatGateway$0.95
-$0.045 per GB Data Processed by NAT Gateways0.000004 GB$0.00
-$0.045 per NAT Gateway Hour21.000 Hrs$0.95
-Amazon Elastic Compute Cloud running Linux/UNIX$0.38
-$0.0416 per On Demand Linux t3.medium Instance Hour9.103 Hrs$0.38
-Amazon Elastic Compute Cloud T3CPUCredits$0.03
-$0.05 per vCPU-Hour of T3 CPU Credits0.576 vCPU-Hours$0.03
-EBS$0.00
-$0.00 per GB-month of General Purpose (SSD) provisioned storage under monthly free tier0.234 GB-Mo
-
-
-$2.30
-
-After you are done with EKS , make sure you delete EKS as well as from two other places :
-
-Delete NAT Gateways and elastic IP - Ohio -- Elastic IP can be accessed from EC2	-- Release IP
-https://us-east-2.console.aws.amazon.com/vpc/home?region=us-east-2#NatGateways:
-https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#Addresses:	- Delete
-
-
 
 
 Jenkins Pipeline
@@ -6469,6 +6433,190 @@ IAM 	- create users/roles/policy
 
 AWS CLI	- simple utility --
 https://awscli.amazonaws.com/AWSCLIV2.msi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ingress
+Helm
+Promethues and Grafana in Kubernetes
+setting up alerts in k8s (promethues & k8s)
+Application Health Check
+Volumes
+k8s jobs
+Probes in kubernetes
+AWS EKS (chargeable)
+
+
+
+Project 
+
+Ingress
+===================
+Internal ClusterIP
+External : NodePort and LoadBalancer
+
+
+Ingress 
+	external service
+	way of routing mechanism
+
+
+http://192.68.88.8:30004/hello
+Ingress is an external service which will allow external traffic - based on routing mechanism
+
+In real world scenario , domain name
+
+
+www.revatureapp.com/hello
+
+
+v1: networking,k8s.io/v1
+Kind: Ingress
+metadata:
+	name: my-ingress
+
+
+	host :revatureapp.com
+
+	http:
+		path:/hello
+
+
+Ingress Controller : is a component -- we have to add in k8s cluster
+
+
+minikube addons list
+minikube addons enable ingress
+minikube addons list
+
+ingress		enabled
+
+
+demo-service.yml
+demo-deployment.yml
+ingress-svc.yml
+
+kubectl get ingress
+
+NAME           CLASS   HOSTS             ADDRESS          PORTS   AGE
+demo-service   nginx   revatureapp.com   192.168.59.115   80      7m39s
+
+update hosts file in windows/linux
+
+notepad C:\Windows\System32\drivers\etc\hosts
+
+
+----------Delete all the resources
+
+kubectl delete -f ./
+
+
+namespace in k8s
+------------------------
+arranged in mohammadapp
+Hands on -- create a namespace of your name and put demoservice/deployments inside that
+
+H:\k8sdemo\ingress>kubectl delete -f ./
+deployment.apps "demo-deployment" deleted
+service "demo-service" deleted
+ingress.networking.k8s.io "demo-service" deleted
+
+H:\k8sdemo\ingress>kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   36m
+
+H:\k8sdemo\ingress>kubectl apply -f ./
+Error from server (NotFound): error when creating "demo-deployment.yml": namespaces "mohammadapp" not found
+Error from server (NotFound): error when creating "demo-service.yml": namespaces "mohammadapp" not found
+Error from server (NotFound): error when creating "ingress-svc.yml": namespaces "mohammadapp" not found
+
+H:\k8sdemo\ingress>kubectl create namespace mohammadapp
+namespace/mohammadapp created
+
+H:\k8sdemo\ingress>kubectl apply -f ./
+deployment.apps/demo-deployment created
+service/demo-service created
+ingress.networking.k8s.io/demo-service created
+
+H:\k8sdemo\ingress>kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   39m
+
+H:\k8sdemo\ingress>kubectl get all -n mohammadapp
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/demo-deployment-5987cf6f74-2vvgh   1/1     Running   0          16s
+
+NAME                   TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/demo-service   NodePort   10.102.212.18   <none>        80:31590/TCP   16s
+
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/demo-deployment   1/1     1            1           16s
+
+NAME                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/demo-deployment-5987cf6f74   1         1         1       16s
+
+
+Use case : I want to create namespace by file
+
+
+
+----creating namespace from file
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: helloapp
+
+
+Microservices
+=============
+
+http://198.78.76.88/product	-GET
+http://198.78.76.88/product	-POST
+
+
+REST
+
+ActiveMQ 	- Messaging service		- 192.168.59.115:30010	
+PositionTracker	-				- 192.168.59.115:30020
+
+
+webapp		-				30060
+
+
+richardchesterwood/k8s-fleetman-position-simulator
+
+
+
+==============================================================================================
+P3
+----------
+Promethues & Grafana-k8s
+Alert Manager - Slack
+
 
 
 
