@@ -6720,22 +6720,22 @@ Create job.yaml
 
 apiVersion: batch/v1 
 kind: Job 
-metadata:   
-  name: kubernetes-job-example   
-  labels:     
-    jobgroup: jobexample 
-spec:   
-  template:     
-    metadata:       
-      name: kubejob       
-      labels:         
-        jobgroup: jobexample     
-    spec:       
-      containers:       
-      - name: c         
-        image: devopscube/kubernetes-job-demo:latest         
-        args: ["100"]       
-      restartPolicy: OnFailure
+metadata:   
+  name: kubernetes-job-example   
+  labels:     
+    jobgroup: jobexample 
+spec:   
+  template:     
+    metadata:       
+      name: kubejob       
+      labels:         
+        jobgroup: jobexample     
+    spec:       
+      containers:       
+      - name: c         
+        image: devopscube/kubernetes-job-demo:latest         
+        args: ["100"]       
+      restartPolicy: OnFailure
 
 
 H:\kubdemo\monitoring>kubectl apply -f job.yaml
