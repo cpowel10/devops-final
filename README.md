@@ -6693,21 +6693,94 @@ kubectl create secret generic --from-file=alertmanager.yaml -n monitoring alertm
 wait for 10 minutes
 
 
+--
+kubectl edit svc monitoring-kube-prometheus-alertmanager -n monitoring
+
+
+192.168.59.124:32207	-grafana
+192.168.59.124:31957	- alertmanager
+192.168.59.124:31753	- promethues
+
+** The alert manager will automatically fire all the alerts irrespective of namespaces
 
 
 
+K8s jobs
+==============
+
+
+Jobs -- batch processing /schedule
+cronjobs
+
+Use case : Batch processing 
 
 
 
+Create job.yaml
+
+apiVersion: batch/v1 
+kind: Job 
+metadata:   
+  name: kubernetes-job-example   
+  labels:     
+    jobgroup: jobexample 
+spec:   
+  template:     
+    metadata:       
+      name: kubejob       
+      labels:         
+        jobgroup: jobexample     
+    spec:       
+      containers:       
+      - name: c         
+        image: devopscube/kubernetes-job-demo:latest         
+        args: ["100"]       
+      restartPolicy: OnFailure
+
+
+H:\kubdemo\monitoring>kubectl apply -f job.yaml
+job.batch/kubernetes-job-example created
+
+H:\kubdemo\monitoring>kubectl get jobs
+NAME                     COMPLETIONS   DURATION   AGE
+kubernetes-job-example   0/1           53s        53s
+
+H:\kubdemo\monitoring>kubectl get po
+NAME                           READY   STATUS              RESTARTS   AGE
+kubernetes-job-example-blf6x   0/1     ContainerCreating   0          22s
+
+H:\kubdemo\monitoring>kubectl get all
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/kubernetes-job-example-blf6x   1/1     Running   0          58s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3h35m
+
+NAME                               COMPLETIONS   DURATION   AGE
+job.batch/kubernetes-job-example   0/1           59s        59s
+
+H:\kubdemo\monitoring>kubectl logs pod/kubernetes-job-example-blf6x -f
+This Job will echo message 100 times
+1] Hey I will run till the job completes.
+
+
+Done!!
 
 
 
+=============================Readiness and livenes probe
 
 
+  spec:
+        containers:
+        - name: webapp
+          image: richardchesterwood/k8s-fleetman-api-gateway:release1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
 
-
-
-
+=
 
 
 
