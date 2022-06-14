@@ -6617,6 +6617,34 @@ P3
 Promethues & Grafana-k8s
 Alert Manager - Slack
 
+promethues-operator
+
+192.168.49.2:30882		- Prometheus
+
+Download crds.yaml and .yaml kops-monitoring.yaml from devops repo
+H:\k8sdemo\monitoring>kubectl create -f crds.yaml
+H:\k8sdemo\monitoring>kubectl create -f kops-monitoring.yaml
+
+
+
+kubectl edit svc monitoring-kube-prometheus-prometheus -n monitoring
+
+kubectl edit svc monitoring-grafana -n monitoring
+
+Change type to LoadBalancer in both
+
+H:\k8sdemo\monitoring>kubectl get all -n monitoring
+Get the port numbers for both the above services
+
+minikube ip
+
+192.168.49.2
+31196
+30416
+
+
+
+Alert - Slack
 
 
 
@@ -6648,15 +6676,9 @@ Alert Manager - Slack
 
 
 
-
-
-
-
-
-
-
-
-
+Quiz
+Portfolio
+Coding assessment
 
 
 
