@@ -6645,6 +6645,52 @@ minikube ip
 
 
 Alert - Slack
+===========================================
+
+
+Signup and login to slack
+Create Workspace
+Create Channel
+App - incoming - link
+
+https://hooks.slack.com/services/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
+
+POST
+
+payload={"text": "This is a line of text in a channel.\nAnd this is another line of text."}
+
+
+kubectl get secret -n monitoring
+
+kubectl get secret -n monitoring alertmanager-monitoring-kube-prometheus-alertmanager
+
+kubectl get secret -n monitoring alertmanager-monitoring-kube-prometheus-alertmanager -o yaml
+
+kubectl delete secret -n monitoring alertmanager-monitoring-kube-prometheus-alertmanager
+
+create alertmanager.yaml
+
+
+global:
+  slack_api_url: 'https://hooks.slack.com/services/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'
+route:
+  group_by: ['alertname']
+  group_wait: 5s
+  group_interval: 1m
+  repeat_interval: 10m
+  receiver: 'slack'
+
+receivers:
+- name: 'slack'
+  slack_configs:
+  - channel: '#my-alerts'
+    icon_emoji: ':bell:'
+    send_resolved: true
+    text: "<!channel> \nsummary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}\nmessage: {{ .CommonAnnotations.message }}"
+
+kubectl create secret generic --from-file=alertmanager.yaml -n monitoring alertmanager-monitoring-kube-prometheus-alertmanager
+
+wait for 10 minutes
 
 
 
@@ -6658,27 +6704,6 @@ Alert - Slack
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Quiz
-Portfolio
-Coding assessment
 
 
 
