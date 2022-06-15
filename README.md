@@ -3913,7 +3913,7 @@ Whats new HTML5
 many new tags audio , video , progress 
 semantic and 		non semantic tags
 
-<header>		<h1>
+<header>	
 <footer>
 <section>
 <aside>
@@ -6788,12 +6788,15 @@ Done!!
 
 
 
-
-
-
-
-
-
+Kubernetes security, networking
+Introduction to Helm
+Working with Helm charts
+Application Health Check: Health and monitoring of Kubernetes cluster
+AWS EKS
+volumes
+JProfiler
+JMeter
+Incident Management
 
 
 
