@@ -6786,18 +6786,394 @@ Done!!
 
 
 
-
-
-Kubernetes security, networking
-Introduction to Helm
+Introduction to Helm Charts
 Working with Helm charts
+
+
+
+package manager
+
+Before helm 
+so many files
+
+-- consistency 
+-- revision history
+
+Install choco (powershell)
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+Install Helm(cmd(admin))
+choco install kubernetes-helm
+
+
+helm
+
+helm install apach 
+
+-----------------------------
+
+helm
+
+parameters
+
+type: Loadbalancer
+
+** It uses a go language
+
+Charts files
+===============
+
+Chart.yaml
+values.yaml
+templates
+	service.yaml
+	deployments.yaml
+	template.tpl
+	
+test
+
+
+
+https://revature.zoom.us/rec/share/OiuP8_NRbWPMuOM04XymaTL7-_baWLTrD-P8iE4mcLm-XIzbbmnc6_OVt6DJgmQ2.j5HZ12zgR1N78vQo
+Passcode: %G6Gk7Gi
+recording link for portfolio orientation, incase if you need
+
+
+
+{{  - Actions - used to write some logics /codes
+
+
+Pipelines ( | )
+
+
+
+
+  {{- "Hello guest"}}
+  {{- "Message in deployment is :" }} {{- .Values.hello.message }}
+  {{- "Message in deployment is :" }}
+  {{- .Values.hello.authorname | default "values are missing" | upper | quote | nindent 2 }}
+ 
+  {{- if .Values.hello.flag }}
+  {{- "Output of" | indent 3}}
+  {{- end}}
+
+  {{- with .Values.hello.countries }}
+  {{- toYaml . | indent 3 }}
+  {{- end}}
+
+  {{- range .Values.hello.countries }}
+  {{- toYaml . | indent 3 }}
+  {{- end}}
+
+  
+  {{- .Chart.Name }}
+  {{- .Chart.Version }}
+  {{- .Chart.AppVersion }}
+
+  {{-  .Release.Name }}
+  {{-  .Release.AppVersion }}
+  {{-  .Release.IsInstall }}
+  {{-  .Release.IsUpgrade }}
+
+  {{-  .Template.Name }}
+  {{-  .Template.BasePath }}
+
+
+Grafana		-locally		-k8s	
+Sonar Qube	-
+
+
+
+
 Application Health Check: Health and monitoring of Kubernetes cluster
 AWS EKS
-volumes
+K8s volumes
+
+
+
+
+
 JProfiler
 JMeter
 Incident Management
 
+----------------------------------------------
+
+kubectl port-forward deployment/mongo 28015:27017
+
+
+==============================================================
+Helm charts
+
+helm install 
+Postgresql 	-local,rds,k8s
+volumes
+Sonarqube	- quality code analysis
+AWS EKS
+Application Health Check: Health and monitoring of Kubernetes cluster
+
+Post lunch - p2
+
+
+
+=========
+DB - posgres-k8s
+
+config.yaml
+# Create ConfigMap postgres-secret for the postgres app
+# Define default database name, user, and password
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-secret
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: appdb
+  POSTGRES_USER: appuser
+  POSTGRES_PASSWORD: strongpasswordapp
+
+---
+apiVersion: v1
+kind: PersistentVolume # Create PV 
+metadata:
+  name: postgres-volume # Sets PV name
+  labels:
+    type: local # Sets PV's type
+    app: postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi # Sets PV's size
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/postgresql" # Sets PV's host path
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim # Create PVC
+metadata:
+  name: postgres-volume-claim # Sets PVC's name
+  labels:
+    app: postgres # Defines app to create PVC for
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi # Sets PVC's size
+
+---
+apiVersion: apps/v1
+kind: Deployment # Create a deployment
+metadata:
+  name: postgres # Set the name of the deployment
+spec:
+  replicas: 3 # Set 3 deployment replicas
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:12.10 # Docker image
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+          envFrom:
+            - configMapRef:
+                name: postgres-secret # Using the ConfigMap postgres-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdata
+      volumes:      # datas in k8s
+        - name: postgresdata
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim
+
+---
+apiVersion: v1
+kind: Service # Create service
+metadata:
+  name: postgres # Sets the service name
+  labels:
+    app: postgres # Defines app to create service for
+spec:
+  type: NodePort # Sets the service type
+  ports:
+    - port: 5432 # Sets the port to run the postgres application
+  selector:
+    app: postgres
+
+kubectl apply -f config.yaml
+
+kubectl get all
+
+kebectl logs <pod-name>
+
+Client :
+kubectl exec -it pod/postgres-75b8fd84f-2nxf2 -- psql -h localhost -U appuser --password -p 5432 appdb
+
+
+
+sonar-qube	- tool which has all the rules
+sonar-scanner	- scanner our projects and giving us the report
+
+Install locally
+
+
+
+
+
+minikube delete 
+
+minikube start
+
+
+
+===============Sonar qube
+
+create sonar-qube.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarqube
+  template:
+    metadata:
+      name: sonarqube
+      labels:
+        app: sonarqube
+    spec:
+      containers:
+        - image: sonarqube:latest
+          args:
+            - -Dsonar.web.context=/sonar
+          name: sonarqube
+          env:
+            - name: POSTGRES_URL
+              value: jdbc:postgresql:/localhost:5432/appdb
+            - name: POSTGRES_DB
+              value: appdb
+            - name: POSTGRES_USER
+              value: appuser
+            - name: POSTGRES_PASSWORD
+              value: strongpasswordapp
+
+          ports:
+            - containerPort: 9000
+              name: sonarqube
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: sonar
+  name: sonar
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 9000
+      name: sonarport
+  selector:
+    name: sonarqube
+
+
+-------------------------wait for 2-3 minutes
+
+
+kubectl edit service/sonar
+
+change iot to load balancer
+
+
+
+**check the logs of sonar-pod
+
+** it must not give you any error
+
+kubectl port-forward deployment.apps/sonarqube 9000:9000
+
+
+localhost:9000/sonar
+
+
+Use case : We want to scan demo project for code quality using sonarqube
+=================================================================
+
+download sonar scanner 	https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/
+
+unzip and goto config folder of sonar scanner and update the below line sonar-scanner.properties
+
+#----- Default SonarQube server
+sonar.host.url=http://localhost:9000/sonar
+sonar.login=admin
+sonar.password=admin123
+
+
+set path for sonar scanner
+
+PATH = H:\scannerdemo\sonar-scanner-cli-4.7.0.2747-windows\sonar-scanner-4.7.0.2747-windows\bin
+
+Verify 
+
+open new cmd(admin)
+
+sonar-scanner and it should not give error
+
+
+
+-------------------------------------configure your project - sonar can be scanned
+
+pom.xml - maven plugin
+update this to plugins
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.4.0.905</version>
+			</plugin>
+
+
+maven update
+
+sonar-project.properties	/root of your project
+
+sonar.projectKey=TufailDemoProject
+sonar.projectName=TufailDemoProject
+sonar.sourceEncoding=UTF-8
+#sonar.sources=src
+sonar.exclusion=
+sonar.sources=src/main/java/
+sonar.language=java
+#sonar.java.binaries=**/target/classes
+#sonar.java.binaries=bin
+#sonar.java.binaries=**/classes/**
+sonar.java.binaries=target
+
+
+Open terminal inside intellij
+
+sonar-scanner
+
+'
+Done!!
+
+Refresh your sonar qube and your project should reflect there
 
 
 
