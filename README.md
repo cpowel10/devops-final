@@ -7178,9 +7178,6 @@ Refresh your sonar qube and your project should reflect there
 
 
 
-
-Ariel,Charles,Luis,Annette - Portfolio pending
-
 p2 presentation : 4:00 PM EST (Tuesday) 21-June -2022
 
 
@@ -7192,4 +7189,3 @@ p3 handover - 4:30 PM EST (Monday) -20-June-2022
 p3 presentation - 7th July 2022 - Thursday 4:00 PM EST 
 
 =========
-July 4th Holiday ??
