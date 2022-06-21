@@ -7189,3 +7189,335 @@ p3 handover - 4:30 PM EST (Monday) -20-June-2022
 p3 presentation - 7th July 2022 - Thursday 4:00 PM EST 
 
 =========
+
+
+EKS
+
+-1) Please select us-west-2 region
+
+0) Please create EC2 keypair , ignore if you have already (optional)
+
+naming convention - revatureEKS
+
+
+==========
+
+
+1) Create an AWS IAM service role
+You need to create an IAM role that allows Kubernetes to create AWS resources.
+
+Navigate to AWS IAM Console and to “Roles” section and click “Create Role”. Select “AWS services” as the trusted entity and “EKS” as the service type and select “EKS” as the use case.
+
+AWS Service ==> EKS ==> EKS Cluster
+
+Next --> Next > Give a name and save it
+revatureEKSRole
+
+Create Role
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) 
+
+Create a VPC to deploy the cluster
+
+Navigate to “AWS CloudFormation” and click on “Create Stack” and give below URL as “Amazon S3 URL”.
+
+** Please check the region
+
+Create Stack --> with new resources(standard)
+https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-02-11/amazon-eks-vpc-sample.yaml
+
+revatureEKSStack1
+
+
+
+
+===================================
+
+3. Configure kubectl for Amazon EKS
+
+In this point, I assume you have already installed kubectl and aws-cli in your machine. If you don’t install it yet please refer below documents to do so.
+
+Install Kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+Install AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
+
+Once you setup kubectl and AWS-CLI in your machine run below command to configure kubectl for AWS EKS.
+
+
+===============================================
+
+
+
+
+4. Create AWS EKS Cluster
+
+Navigate to “AWS EKS” service and click “Create cluster”.
+
+Give any name as the “Cluster name” and give the previously created Role name as the “Role name”. Now give the information obtained in step 2 to complete the VPC details as shown below and click “Create cluster”.
+revatureEKSCluster
+
+** select the VPS - tuesdayStack1-VPS ( that we created in step2)
+
+Next --> Next --> Create
+
+
+
+5. Linking
+
+aws eks --region <region> update-kubeconfig --name <clusterName>
+
+
+aws eks --region us-west-2 update-kubeconfig --name revatureEKSCluster
+
+
+
+=====*** Please check the region before creating the stack
+Now we need to create worker nodes to join the Kubernetes cluster. To create them, navigate again to AWS CloudFormation and click on “Create stack”.
+
+Give the below URL as the Amazon S3 URL and click Next.
+
+https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-02-11/amazon-eks-nodegroup.yaml
+
+In the next page, you need to fill the required information as below.
+
+Stack name: GIve any unique name to the stack [ revatureEKSWorkerStack1]
+
+ClusterName: Give the previously created Kubernetes cluster name
+
+ClusterControlPlaneSecurityGroup: Give the SecurityGroup value obtained from the outputs in step 2.
+
+NodeGroupName: Give any unique name
+
+NodeAutoScalingGroupMinSize: 1
+
+NodeAutoScalingGroupDesiredCapacity: 3
+
+NodeAutoScalingGroupMaxSize: 4
+
+NodeInstanceType : t3.medium
+
+NodeImageId: Give a suitable Node image ID. Use the below table to choose the correct image-id according to the region you used. Refer the EKS AMI document to find the correct AMI ID. (EX: NodeImageID for 1.16 version Sydney region is ami-09e7454072d169c9b)
+https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
+
+KeyName: An EC2 Key Pair to allow SSH access to the instances.
+
+VpcId: Give the VpcId value obtained from the outputs in step 2.
+
+Subnets: Give the SubnetIds values obtained from the outputs in step 2.
+
+After giving the above-required information, then click on “Create stack” to launch the worker node stack.
+
+After creating the worker node stack, go to stack outputs and copy the “NodeInstanceRole” value.
+
+
+Now you need to enable worker nodes to join your cluster.
+
+=========================
+Goto the below and change the ip to public and save
+
+https://us-west-2.console.aws.amazon.com/vpc/home?region=us-west-2#subnets:
+=========================
+
+Create node group
+
+your cluster name	--> compute -->  Add node group
+
+Select your role that you created above.
+
+Select your subnets that you change just now to public
+====================================
+
+
+
+
+vim ~/.kube/aws-auth-cm.yaml
+Create the above file and fill it with the below content and replace the <ARN of instance role> snippet with the NodeInstanceRole taken from outputs above.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: aws-auth
+ namespace: kube-system
+data:
+ mapRoles: |
+   - rolearn:  <ARN of instance role>
+     username: system:node:{{EC2PrivateDNSName}}
+     groups:
+       - system:bootstrappers
+       - system:nodes
+Then run below commands to apply the configurations.
+
+kubectl apply -f aws-auth-cm.yaml
+Now your AWS EKS Cluster is ready to create your favorite application on your Kubernetes cluster.
+
+Section Two: Launch your app in Kubernetes
+To launch an app in Kubernetes, you need to deploy a deployment file and a service file.
+
+Create a helloworld.yaml file and use the below content in it.
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+  labels:
+    app: helloworld
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - name: helloworld
+        image: dockercloud/hello-world
+        ports:
+        - containerPort: 80
+And then create a service file with the name helloworld-service.yaml and use the below content in it.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: "service-helloworld"
+spec:
+  selector:
+    app: helloworld
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+Then launch the above deployment and the service in your Kubernetes cluster as follows.
+
+kubectl apply -f helloworld.yaml
+kubectl apply -f helloworld-service.yaml
+Now get the details of the running helloworld service in your cluster.
+
+kubectl get svc service-helloworld -o yaml
+It will give the below content,
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"service-helloworld","namespace":"default"},"spec":{"ports":[{"port":80,"protocol":"TCP","targetPort":80}],"selector":{"app":"helloworld"},"type":"LoadBalancer"}}
+  creationTimestamp: 2019-06-14T06:45:24Z
+  name: service-helloworld
+  namespace: default
+  resourceVersion: "10463"
+  selfLink: /api/v1/namespaces/default/services/service-helloworld
+  uid: fccb03b3-8e6f-11e9-81eb-0216dc268822
+spec:
+  clusterIP: 10.100.73.199
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 32322
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: helloworld
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: afccb03b38e6f11e981eb0216dc26882-2016688520.us-west-2.elb.amazonaws.com
+
+=====================Please Wait for some time
+
+
+
+======================
+
+
+
+
+========================cmd
+
+H:\>cd awseks
+
+H:\awseks>kubectl apply -f aws-auth-cm.yaml
+configmap/aws-auth created
+
+H:\awseks>kubectl apply -f helloworld.yaml
+deployment.apps/helloworld-deployment created
+
+H:\awseks>kubectl apply -f helloworld-service.yaml
+service/service-helloworld created
+
+H:\awseks>
+H:\awseks>kubectl get svc service-helloworld -o yaml
+
+
+----------------------check once this
+
+H:\awseks>kubectl get all
+NAME                                         READY   STATUS    RESTARTS   AGE
+pod/helloworld-deployment-78dddb8bc4-bm8gs   1/1     Running   0          101m
+
+NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP                                                              PORT(S)        AGE
+service/kubernetes           ClusterIP      10.100.0.1     <none>                                                                   443/TCP        166m
+service/service-helloworld   LoadBalancer   10.100.107.3   a5c56fdc8850f4b739a21312ed55fd10-493586411.us-west-2.elb.amazonaws.com   80:32712/TCP   101m
+
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/helloworld-deployment   1/1     1            1           101m
+
+NAME                                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/helloworld-deployment-78dddb8bc4   1         1         1       101m
+
+
+-----------------------------
+check the hostname :::
+
+   - hostname: a5c56fdc8850f4b739a21312ed55fd10-493586411.us-west-2.elb.amazonaws.com
+
+
+-----------------
+
+H:\awseks>kubectl get nodes
+NAME                                            STATUS     ROLES    AGE    VERSION
+ip-192-168-126-17.us-west-2.compute.internal    NotReady   <none>   114s   v1.22.9-eks-810597c
+ip-192-168-166-50.us-west-2.compute.internal    NotReady   <none>   115s   v1.22.9-eks-810597c
+ip-192-168-179-186.us-west-2.compute.internal   Ready      <none>   66s    v1.22.9-eks-810597c
+ip-192-168-235-103.us-west-2.compute.internal   NotReady   <none>   113s   v1.22.9-eks-810597c
+ip-192-168-94-219.us-west-2.compute.internal    Ready      <none>   75s    v1.22.9-eks-810597c
+
+
+------------------------------
+There you can get the hostname as the bolted above. Now you can access the service with that hostname in the browser. Just type this hostname in your favorite browser, it will show your hello world service :) Mohammad Tufail Ahmed
+
+
+===========================
+
+important dates : 
+
+Cummulative QC : ?? Yet to update 27th or 28th
+
+Cognizant Interview : 30th June and 1st July
+
+p3 showcase : 7th July
+
+Graduation day : 8th July
+
+==============================
+
