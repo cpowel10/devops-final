@@ -7523,3 +7523,384 @@ Graduation day : 8th July
 
 
 
+How many associates they are planning to hire ?
+how soft skills vs technical skills ?
+
+
+Core Java
+---------------
+SQL
+------
+Maven
+------
+Git
+
+Question :
+
+
+Abstract class vs Interface 
+Type of methods: Interface can have only abstract methods. An abstract class can have abstract and non-abstract methods. From Java 8, it can have default and static methods also.
+Final Variables: Variables declared in a Java interface are by default final. An abstract class may contain non-final variables.
+Type of variables: Abstract class can have final, non-final, static and non-static variables. The interface has only static and final variables.
+Implementation: Abstract class can provide the implementation of the interface. Interface can’t provide the implementation of an abstract class.
+Inheritance vs Abstraction: A Java interface can be implemented using the keyword “implements” and an abstract class can be extended using the keyword “extends”.
+Multiple implementations: An interface can extend another Java interface only, an abstract class can extend another Java class and implement multiple Java interfaces.
+Accessibility of Data Members: Members of a Java interface are public by default. A Java abstract class can have class members like private, protected, etc.
+
+
+
+Question :
+
+Why main is static 
+
+The main() method is static so that JVM can invoke it without instantiating the class.
+ This also saves the unnecessary wastage of memory which would have been 
+used by the object declared only for calling the main() method by the JVM
+
+What are enumerations (enums)?	A special Java type that defines a collection of constants
+	Why are strings immutable in java?	Identical String literals are collected in the "String pool" in an effort to conserve memory. Reference variables will then point to the same String object instance. Changing the object's state in the String pool will make changes to all references to that String object. Instead, when a change to a String is made, the JVM makes a new String object, and the reference variable points to the new String in the String pool.
+	What is the difference between `String`, `StringBuilder`, and `StringBuffer`?	Strings are immutable.  Both `StringBuilder` and `StringBuffer` are mutable.  Furthermore, `StringBuffer` is sychronized while `StringBuilder` is not.
+	What are annotations?	A type of syntactic metadata added to the code, read by the compiler - use @ syntax
+	Explain stack vs heap?	Heap is where objects are stored in memory. Stack is where local variable references are kept - a new stack is created for each method invocation
+	What is a POJO? What is a bean?	"POJO - plain old Java object. Any Java object that you create.
+Bean - a POJO that has private data members, public getters/setters, and overrides .hashcode, .equals, and .toString methods"
+	How can you force garbage collection in Java?	Garbage collection cannot be forced but only requested using `System.gc()`.
+	What is the difference between `final`, `.finalize()`, and `finally`?	"a. `final`: final keyword can be used for class, method and variables. A final class cannot be subclassed and it prevents other programmers from subclassing a secure class to invoke insecure methods. A final method can't be overridden. A final variable can't change from its initialized value.
+b. `finalize()`: finalize method is used just before an object is destroyed and called just prior to garbage collection.
+c. `finally`: finally, a key word used in exception handling, creates a block of code that will be executed after a `try/catch` block has completed and before the code following the `try/catch` block. The `finally` block will execute whether or not an exception is thrown. For example, if a method opens a file upon exit, then you will not want the code that closes the file to be bypassed by the exception-handling mechanism. This finally keyword is designed to address this contingency."
+	What is a Marker interface?	A marker interface is an interface which has no methods at all. Example: `Serializable`, `Remote`, `Cloneable`. Generally, they are used to give additional information about the behavior of a class.
+
+
+	What are the access modifiers in Java? Explain them.	
+"public  - can be accessed from any package.
+private - only members of the same class can access.
+protected - can be accessed by classes inside the package and subclasses anywhere.
+default - no access by classes or subclasses outside the package"
+
+
+	What are the non-access modifiers in Java?	static, final, abstract, default, synchronized, transient, volatile, native, strictfp
+
+
+What is the difference between static and final variables?	Static variable is a global variable shared by all the instances of objects and it has only single copy.  A final variable is a constant variable and it cannot be changed.
+	What are the default values for all data types in Java?	Objects - null. int, short, byte, long, float, double - 0. boolean - false. char - 'u0000' (null character)
+	What are the implicit modifiers for interface variables / methods?	methods - public abstract; variables - public static final
+	What is a wrapper class?	Wrapper class is a wrapper around a primitive data type. It represents primitive data types in their corresponding class instances e.g. a boolean data type can be represented as a Boolean class instance. All of the primitive wrapper classes in Java are immutable i.e. once assigned a value to a wrapper class instance cannot be changed further.
+	What is autoboxing / unboxing?	Auto-boxing is the automatic conversion of primitives to their wrapper classes by the compiler. Useful for adding primitives to collections
+	Is Java pass-by-value or pass-by-reference?	Java is strictly pass by value. Even when object references are passed as arguments, it is the value of the reference that is passed
+	What is synchronized keyword?	Only allowing one thread access to the method or variable at a time - enforces thread-safety
+	What is the difference between `==` and `.equals()`?	"`==` -  tests to see if two reference variables refer to the exact same instance of an object.
+`.equals()` - tests to see if the two objects being compared to each other are equivalent, but they need not be the exact same instance of the same object."
+	First line of constructor?	The compiler will insert `super()` as the first line - it cannot be used anywhere else in constructor except for the first line
+
+===================================
+
+=============
+What is String and what are the different ways of creating string
+- String is a class in java belongs to java.lang package
+- final and immutable class 
+- Strings in Java are Objects that are backed internally by a char array.
+
+what are the different ways of creating string (two ways)
+a) String str1 = "Revature"
+b) String str2 = new String("Revature");
+
+By string literal : Java String literal is created by using double quotes. For Example: String s=“Welcome”;
+By new keyword : Java String is created by using a keyword “new”. For example: String s=new String(“Welcome”);
+
+== 	- checks the reference
+equals	- checks the value
+
+List some methods of string
+concat, length, substrin, split,indexOf,charAt,compareTo,contains and etc
+==============================================================
+
+Difference between overloading and overriding
+
+When two or more methods in the same class have the same name but different parameters, it’s called Overloading.
+
+When the method signature (name and parameters) are the same in the superclass and the child class, it’s called Overriding.
+
+1) Overriding implements Runtime Polymorphism whereas Overloading implements Compile time polymorphism.
+2) The method Overriding occurs between superclass and subclass. Overloading occurs between the methods in the same class.
+3) Overriding methods have the same signature i.e. same name and method arguments.
+ Overloaded method names are the same but the parameters are different.
+
+====================================================================================
+
+When a child class calls a method that both the child & parent share, which one gets executed? (overriding)
+Ans : Child
+
+With method loading, can you have an "Add" method with integers as parameters and a second "Add" method with doubles as parameters?
+- will this cause a compile time error?
+No, overloading
+
+====================================================================================
+What is a static variable?
+Static variable in Java is variable which belongs to the class and initialized only once at the start of the execution.
+ It is a variable which belongs to the class and not to object(instance ). 
+Static variables are initialized only once, at the start of the execution.
+
+
+====================================================================================
+Is it legal to change a static variable value?
+Yes.. it can be changed. But, what makes static variable unique is static variables belongs to the class instead of a particular object.
+
+
+Can you access static variables using reference variables without using the class name?
+Yes, it will give warning and not errors
+
+What is the difference between default scope vs protected scope? -refering to access modifiers
+
+default - same package
+protected - same package + child classes in another packages
+
+========================================================================================
+final keyword	- cannot be changed
+
+final class	- cannot be inherited
+final method 	- cannot be overridden
+
+
+
+7. What kind of Collections have you used?
+	List,Set and Map
+	ArrayList		-dynamic array - not sync and not thread safe	- used for iteration (faster)
+	LinkedList	- internally uses DLL - it is used for in the case of frequent adding and removing elements
+	Vector		- same like arraylist except it is thread safe - which means only one thread at a time can access the code,
+
+Set	HashSet		- no Duplicate, unordered,no order
+	LinkedHashSet	-  order as inserted
+	TreeSet		- sorted
+Key Value
+Map	TreeMap		- sorted based on keys
+	LinkedHashMap	- order as inserted based on keys
+	HashMap		- no Duplicate keys , unordered,no order is guranteed, HashMap is non-synchronized , not thread safe
+	HashTable	- HashMap is synchronized and thread safe
+
+	Queue		- FIFO
+	Stack		- LIFO
+
+
+======SQL
+
+
+SQL language and sublanguages
+DDL (data definition)
+Create, Alter, Drop, Truncate
+DML (data manipulation)
+insert, delete , update
+DQL (data query)
+select 
+DCL (data control)
+grant, revoke
+TCL (transaction control)
+commit, rollback and savepoint
+
+RDBMS systems and popular vendors
+NoSQL
+---------
+MongoDB
+
+
+Relational vs non-relational databases
+SQL data types
+number
+
+Aliases
+Joins
+Inner
+Outer
+Left
+Right
+Cross
+Self
+Equi / non-equi
+Theta
+Natural
+Set Operations
+Union
+Union All
+Intersect
+Minus / Except
+
+select * from employees where employeeId = 100;
+
+
+INNER JOIN.
+The most commonly used type of join, returns rows only if the columns specified in the join clause match.
+OUTER JOIN.
+The OUTER keyword can be used with LEFT, RIGHT or FULL keywords to obtain rows which some of the join columns are NULL.
+However, in Oracle, this word is optional. LEFT, RIGHT or FULL will be automatically OUTER.
+LEFT [OUTER] JOIN.
+Returns the matching rows plus the ones that where null in the first table.
+RIGHT [OUTER] JOIN.
+Returns the matching rows plus the ones that where null on the second table.
+FULL [OUTER] JOIN.
+Returns all rows from both tables specified including the ones which had null values on either side.
+CROSS JOIN.
+Returns the cartesian product two or more tables.
+SELF JOIN.
+An INNER JOIN performed matching two columns existing in the same table.
+They represent hierarchies.
+NATURAL JOIN
+Used as a shortcut so that the join predicate is not needed to be specified
+The tables are joined on matching column names
+
+
+
+
+
+
+Indexes
+Views
+Aggregate functions
+MIN
+MAX
+AVG
+COUNT
+Scalar functions
+LEN
+UPPER
+LOWER
+TRIM
+PL/SQL
+Sequences
+Triggers
+Stored procedures
+Cursors
+Transactions
+Properties of a transaction (ACID)
+Atomicity
+Consistent
+Isolated
+Durable
+Isolation levels
+Read uncommitted
+Read committed
+Repeatable read
+Serializable
+
+
+
+
+JDBC
+
+DriverManager class - to make a connection with a database driver
+DataSource interface - for retrieving connections, an alternative to DriverManager
+Connection interface - represents a physical connection with a database
+SQLException class - a general exception thrown when something goes wrong when accessing the database
+Statement interface - used for executing static SQL statements
+PreparedStatement interface - represents pre-compiled SQL statements
+CallableStatement interface - used to execute stored procedures
+ResultSet interface - represents data returned from the database
+
+
+boolean 	result = statement.execute	(DDL)	create,alter, drop ,truncate
+ResultSet res = statement.executeQuery	(DQL) select
+int res = statement.executeUpdate (DML)
+
+
+
+=====================
+
+New features in JDK1.8
+
+Lambdas
+Lambda Expressions were added in Java 8. A lambda expression is a short block of code which takes in parameters and returns a value. Lambda expressions are similar to methods, but they do not need a name and they can be implemented right in the body of a method.
+new Date Time API()
+default and static methods in interface
+
+=======================
+
+1)
+Difference between Array and ArrayList
+
+1)Array is a fixed length data structure whereas ArrayList is a variable length Collection class. 
+2)We cannot change length of array once created in Java but ArrayList can be changed. 
+3) We cannot store primitives in ArrayList, it can only store objects. But array can contain both primitives and objects in Java.
+
+2)
+Difference between Set and List
+1. The List is an ordered sequence.	1. The Set is an unordered sequence.
+2. List allows duplicate elements	2. Set doesn’t allow duplicate elements.
+2.Multiple null elements can be stored.	3.Null element can store only once.
+
+
+What is Object class in java ? List some methods of object class?
+super class for all the classes in java, toString,equals,hashCode,wait, notify
+
+
+
+Difference between Statement,PreparedStatement ?
+Statement is used for executing simple SQL Statements 
+	PreparedStatement is used for executing dynamic and pre-compiled SQL Statements.
+
+
+What is the use of CallableStatement ?
+CallableStatement is used to call stored procedure
+
+
+=================SQL==============================
+
+
+DML	- insert, delet, update
+DDL	- create,alter,drop,truncate
+DQL	- select
+DCL	- commit, rollback, savepoint
+
+Joins
+differennce between inner and outer join
+The biggest difference between an INNER JOIN and an OUTER JOIN is that the inner join will keep only the information from both tables that's related to each other (in the resulting table).
+ An Outer Join, on the other hand, will also keep information that is not related to the other table in the resulting table
+
+difference between left and right outer join
+left outer - left side all the data would be displayed
+right outer - right side all the data would be displayed
+full outer - both side , all the data would be displayed
+
+10.
+Do you know anything about SQL queries? 
+What types of Joins are there? What is the syntax to join two tables?
+
+select * from table1 t1 join table2 t2 on t2.id = t1.fkId
+
+city,country_name
+
+10 minutes
+
+way to remember is aggregate requires more than one value whereas scalar is on one
+
+Aggregate Functions
+SUM()
+COUNT() 
+AVG() 
+MIN()
+MAX()
+FIRST()
+LAST() 
+Scalar Functions
+LCASE()
+UCASE() 
+LEN()
+MID() 
+ROUND() 
+NOW()
+FORMAT()
+
+
+group by clause
+------------------------
+part of DQL sub language used with aggregate functions
+The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country".
+
+The GROUP BY statement is often used with aggregate functions (COUNT(), MAX(), MIN(), SUM(), AVG()) to group the result-set by one or more columns.
+Example : group sum of salary of employees based onn departments
+select department_id,sum(salary) from employees
+group by department_id
+
+
+where vs having clause
+having can be used with aggregate functions
+correct
+
+A HAVING clause is like a WHERE clause, but applies only to groups as a whole (that is, to the rows in the result set representing groups), whereas the WHERE clause applies to individual rows.

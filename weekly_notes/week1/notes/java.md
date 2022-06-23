@@ -201,13 +201,13 @@ by extending Exception or RuntimeException
 and by creating constructors
 
 
-Why we use static keyword with variables and classes.
-Why we use static with main method in java.
+Why we use static keyword with variables and classes.	- Chris Powell
+Why we use static with main method in java.		- 
 - What is the finally keyword? Will a finally block in a try catch block run if both try and catch have return statements
 Can you talk about exceptions?
 Classpath versus Path.
 Ways split a String
-            is there a specific order on which keywords you use when creating a method.
+is there a specific order on which keywords you use when creating a method.
 Can a static method be overridden in Java?
 What is the difference between the static and final keywords in Java?
 
