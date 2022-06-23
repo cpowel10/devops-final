@@ -7557,6 +7557,9 @@ The main() method is static so that JVM can invoke it without instantiating the 
  This also saves the unnecessary wastage of memory which would have been 
 used by the object declared only for calling the main() method by the JVM
 
+=====================
+
+
 What are enumerations (enums)?	A special Java type that defines a collection of constants
 	Why are strings immutable in java?	Identical String literals are collected in the "String pool" in an effort to conserve memory. Reference variables will then point to the same String object instance. Changing the object's state in the String pool will make changes to all references to that String object. Instead, when a change to a String is made, the JVM makes a new String object, and the reference variable points to the new String in the String pool.
 	What is the difference between `String`, `StringBuilder`, and `StringBuffer`?	Strings are immutable.  Both `StringBuilder` and `StringBuffer` are mutable.  Furthermore, `StringBuffer` is sychronized while `StringBuilder` is not.
@@ -7588,6 +7591,7 @@ What is the difference between static and final variables?	Static variable is a 
 	What is autoboxing / unboxing?	Auto-boxing is the automatic conversion of primitives to their wrapper classes by the compiler. Useful for adding primitives to collections
 	Is Java pass-by-value or pass-by-reference?	Java is strictly pass by value. Even when object references are passed as arguments, it is the value of the reference that is passed
 	What is synchronized keyword?	Only allowing one thread access to the method or variable at a time - enforces thread-safety
+
 	What is the difference between `==` and `.equals()`?	"`==` -  tests to see if two reference variables refer to the exact same instance of an object.
 `.equals()` - tests to see if the two objects being compared to each other are equivalent, but they need not be the exact same instance of the same object."
 	First line of constructor?	The compiler will insert `super()` as the first line - it cannot be used anywhere else in constructor except for the first line
@@ -7661,14 +7665,25 @@ final class	- cannot be inherited
 final method 	- cannot be overridden
 
 
+Collection vs Collections
+----------------------
+is a framework in java
+it has lots of built in classes and interfaces suited to store data.
+
+Collection			Collections
+interface				class
+				which has lots of useful static methods like binarySearch
+
 
 7. What kind of Collections have you used?
-	List,Set and Map
+List ( can accept duplicate values)
+
 	ArrayList		-dynamic array - not sync and not thread safe	- used for iteration (faster)
-	LinkedList	- internally uses DLL - it is used for in the case of frequent adding and removing elements
+	LinkedList	- internally uses Double Linked list - it is used for in the case of frequent adding and removing elements
 	Vector		- same like arraylist except it is thread safe - which means only one thread at a time can access the code,
 
-Set	HashSet		- no Duplicate, unordered,no order
+Set (will not accept duplicates)
+	HashSet		- no Duplicate, unordered,no order
 	LinkedHashSet	-  order as inserted
 	TreeSet		- sorted
 Key Value
@@ -7679,6 +7694,27 @@ Map	TreeMap		- sorted based on keys
 
 	Queue		- FIFO
 	Stack		- LIFO
+
+
+
+JDBC
+
+DriverManager class - to make a connection with a database driver
+DataSource interface - for retrieving connections, an alternative to DriverManager
+Connection interface - represents a physical connection with a database
+SQLException class - a general exception thrown when something goes wrong when accessing the database
+Statement interface - used for executing static SQL statements
+PreparedStatement interface - represents pre-compiled SQL statements
+CallableStatement interface - used to execute stored procedures
+ResultSet interface - represents data returned from the database
+
+
+boolean 	result = statement.execute	(DDL)	create,alter, drop ,truncate
+ResultSet res = statement.executeQuery	(DQL) select
+int res = statement.executeUpdate (DML)
+
+
+
 
 
 ======SQL
@@ -7783,23 +7819,6 @@ Serializable
 
 
 
-JDBC
-
-DriverManager class - to make a connection with a database driver
-DataSource interface - for retrieving connections, an alternative to DriverManager
-Connection interface - represents a physical connection with a database
-SQLException class - a general exception thrown when something goes wrong when accessing the database
-Statement interface - used for executing static SQL statements
-PreparedStatement interface - represents pre-compiled SQL statements
-CallableStatement interface - used to execute stored procedures
-ResultSet interface - represents data returned from the database
-
-
-boolean 	result = statement.execute	(DDL)	create,alter, drop ,truncate
-ResultSet res = statement.executeQuery	(DQL) select
-int res = statement.executeUpdate (DML)
-
-
 
 =====================
 
@@ -7833,7 +7852,7 @@ super class for all the classes in java, toString,equals,hashCode,wait, notify
 
 Difference between Statement,PreparedStatement ?
 Statement is used for executing simple SQL Statements 
-	PreparedStatement is used for executing dynamic and pre-compiled SQL Statements.
+PreparedStatement is used for executing dynamic and pre-compiled repetitive SQL Statements.	? represents placeholders
 
 
 What is the use of CallableStatement ?
@@ -7841,12 +7860,13 @@ CallableStatement is used to call stored procedure
 
 
 =================SQL==============================
+what are the sub languages of SQL ?
 
-
-DML	- insert, delet, update
+DML	- insert, delete, update
 DDL	- create,alter,drop,truncate
 DQL	- select
-DCL	- commit, rollback, savepoint
+TCL	- commit, rollback, savepoint
+DCL 	- revoke and grant
 
 Joins
 differennce between inner and outer join
@@ -7899,8 +7919,187 @@ select department_id,sum(salary) from employees
 group by department_id
 
 
-where vs having clause
-having can be used with aggregate functions
-correct
+** where vs having clause
+having can be used with aggregate functions correct
 
 A HAVING clause is like a WHERE clause, but applies only to groups as a whole (that is, to the rows in the result set representing groups), whereas the WHERE clause applies to individual rows.
+
+
+		employees	departments
+WAQ to print first_name,salary,	department_name  of all the employees who reports to 'Alex'
+
+select first_name, salary, department_name
+from employee e
+join deparment d
+on e.department_id = d.department_id
+where manager id = (select employee_id where first_name = 'Alex')
+
+
+select e.first_name, e.salary, d.department_name 
+from employees e join departments d on (e.employee_id = d.manager_id)
+where e.manager_id = (select e2.employee_id from employees e2 where e2.first_name = 'Alex');
+
+
+select employees.first_name, employees.salary,department_namme from employee Join department On depart.department_id = employee.employeee_id where employee_name = alex;
+
+
+WAQ to print the sum of salary based on departments
+
+select department_id, sum(salary) from employees
+group by department_id
+
+
+
+department_id, sum(salary)
+
+10		98081
+
+
+WAQ to print the sum of salary based on departments whose sum is > 6000
+
+
+select department_id, sum(salary) from employees
+group by department_id
+having sum(salary) > 6000
+
+
+List out the names and hiring date of all the employees who got hired after davies
+select hire_date from employees where first_name like ='Davies'
+
+08-08-2022
+
+select first_name,hire_date from employees where hire_date > '08-08-2022'
+
+
+Solution :
+select first_name,hire_date from employees where hire_date > (select hire_date from employees where first_name like ='Davies')
+
+10 minutes
+
+From Leo Schaffner to Everyone 08:34 PM
+select first_name, last_name, hire_date from employees e where hire_date > 
+	(select hire_date from employees e2 where first_name = 'Davies')
+From Ananda Magar to Everyone 08:38 PM
+select first_name, last_name, hire_date from employees where hire_date > (select hire_date from employees where last_name = 'Davies')
+From Nicole Pang to Everyone 08:38 PM
+select first_name,hire_date from employees e where hire_date = (select hire_date from employees e where first_name = 'Davies');
+From Chris Powell to Everyone 08:38 PM
+select e.first_name, e.hire_date from employees e
+where e.hire_date >
+	(select e2.hire_date from employees e2 where lower(e2.first_name) = 'davies');
+From Sidi Gassama to Everyone 08:39 PM
+select first_name, last_name , hire_date from employees e where e.hire_date > (select hire_date from employees where first_name ="Davies")
+From Luis Marquez to Everyone 08:39 PM
+select first_name, last_name
+from employees
+where hire_date > (select hire_date from employees where lower(first_name) = 'davies');
+From KirkWade Polasek to Everyone 08:39 PM
+SELECT e.first_name, e.last_name, e.hire_date 
+FROM employees e 
+JOIN employees davies 
+ON (davies.last_name = 'davies') 
+WHERE davies.hire_date < e.hire_date;
+From Xianghe Cheng to Everyone 08:39 PM
+select first_name, last_name from employees where employees.hire_date > (select hire_date from employees where last_name = 'Davies');
+From Brian Cunningham to Everyone 08:39 PM
+select first_name, last_name 
+from employees e 
+where e.hire_date >=
+(select hire_date from employees where employee last_name = "davies")
+From Anthony Barone to Everyone 08:39 PM
+select first_name, hire_date from employees e where hire_date > (select hire_date from employees e2 where first_name = 'Davies' )
+From Zeru Yang to Everyone 08:40 PM
+select first_name, last_name
+from employee
+where hire_date > (select hire_date from employee where lower(first_name) = 'davies');
+From Sarina Joshi to Everyone 08:40 PM
+Select first_name, last_name, hire_date from employees join employees davies where davies.hire_date < hire_date;
+
+select first_name, last_name  from employees e where hire_date > (select hire_date from employees e2 where last_name = 'davies')
+
+
+
+Constraints
+We can put integrity constraints on specific columns in our database when defining tables, which allow us to enforce the schema by ensuring consistency and integrity of the data in the table. The different constraints are listed below:
+
+PRIMARY KEY
+FOREIGN KEY - Referential Integrity
+NOT NULL
+UNIQUE
+CHECK
+DEFAULT
+AUTO INCREMENT
+A primary key is a constraint that uniquely identifies a record in a table. Often, this constraint will be enforced on some sort of "ID" field, such as "employee_id". A primary key is inherently composed of two other constraints - unique and not null. Thus, a primary key MUST be provided when inserting a record into a table, unless the RDBMS system is generating it automatically behind the scenes.
+
+A foreign key constraint signifies that a column represents a reference to the primary key of another table. This allows us to create relationships between tables. For example, if we are modeling cars and the owners of those cars, we might have a Car table with an owner_id foreign key that references the user_id field in the People table. We can then lookup the owner of any car by fetching the owner_id of the car and finding the matching user_id in the People table.
+
+A not null constraint simply enforces that all records must have a field for the column on which this constraint is applied. For example, we know that every person has a social security number, so we might want to consider placing a not null constraint on that field in our users table (assuming we want to store the social security numbers). This prevents users of the database from leaving the table in an inconsistent or invalid state. The unique constraint works similarly - records cannot be inserted if another record already has the same value for the column on which this is declared.
+
+The check constraint provides a way of performing validation on values before records are entered into the table. For example, we may want to ensure that a bank account can never have a negative balance, so we might set a check constraint (CHECK (balance >= 0)).
+
+A default constraint allows setting default values on columns for records that are inserted into the table.
+
+Finally Auto-increment allows a unique number to be generated automatically when a new record is inserted into a table. Very often the primary key of a table needs to be created automatically, and we define that field as AUTO INCREMENT field. Following is the syntax for creating an AUTO INCREMENT field.
+
+
+
+Multiplicity
+As mentioned before, table relationships can be defined using foreign key constraints. There are several different kinds of relationships that exist between tables in relational databases:
+
+One to one
+One to Many / Many to One
+Many to Many
+A one-to-one relationship means that each entity in the table only relates to a single entity in the other table. For example, if we are modeling a school, where each classroom has a single projector in it, we would want to make this relationship a one to one between the Classroom and the Projector tables. In our database, we can provide the classroom table a projector_id foreign key and provide the projector table a classroom_id foreign key. To enforce the one to one aspect, we should also apply a unique constraint on the foreign key columns. Otherwise, a user could add another projector record with the same classroom_id as an existing record, and then our one to one relationship would be broken.
+
+A one to many (or vice versa, many to one) relationship is where one entity can belong to, own, or otherwise relate to multiple other entities. In our school modeling example, a Student could have many books, so this would be a one to many relationship. To create this in the database, we add the foreign key only on the many side of the relationship - so a book entity would have a field such as student_id as a foreign key to identify the owning student.
+
+A many-to-many relationship implies a one-to-many relationship in both directions on the entities. For example, a Teacher can have many Students, but a Student could have many Teachers as well. In this case, we cannot provide a direct link between the tables in the database - instead, we need to create what is called a junction table or bridge table to relate the two tables. So, in our student-teacher example, we could create a Class table which contains two foreign keys - one that refers to the Teacher table's primary key and one that refers to the Student table's primary key. This creates a list of unique Teacher-Student mappings that can be used to look up which students a particular teacher teaches, or which teachers a particular student has. An example is shown below.
+
+Class Table
+ClassId	TeacherId	StudentId
+1	1	1
+1	1	2
+2	1	3
+3	2	1
+3	2	3
+We can see above that Teacher 1 teaches both Student 1 and 2 in the same class. Teacher 2 teaches Student 1 and 3 in a different class. Teacher 1 also has another class where he just teaches Student 3.
+
+Referential Integrity
+When we create table relationships as demonstrated above, it is important that our data remains in a consistent state throughout the database. For example, we never want a record on our class table to be pointing to a record in either the Teacher or the Student table that does not exist. We call enforcing this property as maintaining referential integrity. When we break referential integrity, we will find orphan records in the database - these are records whose foreign keys do not point to an existing record in the other table. One way of preventing this from occuring is by using a setting called CASCADE DELETE - when we enable this, deleting a record in the table will also cascade that operation and delete any records in tables that reference the that record via foreign keys.
+
+Normalization
+Normalization refers to an optimization process of structuring a relational database in a way that reduces redundancy of data and improves data integrity and consistency. There are many different normal forms, which relate to the degree to which a database has been normalized. We will look at the first three normal forms, each of which build upon the previous:
+
+1NF - must have a primary key, no repeating groups, and atomic columns
+2NF - must already be in 1NF, plus have no partial dependencies
+3NF - must already be in 2NF, plus have no transitive dependencies
+The first normal form enforces that a table must:
+
+Have a primary key
+Each column should be as granular as possible (e.g. "Name" column should be broken up into: "First Name", "Last Name", "Middle Name", etc..)
+To be in second normal form, a table must also:
+
+Cannot have columns that are dependent on only one part of the key
+If there are no composite primary keys, you are automatically in 2NF
+Finally, to get to third normal form, a table must also:
+
+Not have transitive dependencies
+This means that if column C relates to column B which relates to column A which is the primary key, this is not in 3NF because C is related to the primary key but indirectly (it is a transitive dependency)
+To advance into higher normal forms, we typically "break up" tables into multiple tables and relate them to each other via foreign keys.
+
+A good way of remembering these normal forms in order is to remember the legal proceeding of swearing to tell the truth, the whole truth, and nothing but the truth. In relational databases, we must have the key (1NF), the whole key (2NF), and nothing but the key (3NF).
+
+
+==================
+
+Stored Procedures
+---------------------
+
+database object - which is a set of instructions 
+called by exec method
+
+
+
+
+
+
