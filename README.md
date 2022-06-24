@@ -8102,4 +8102,64 @@ called by exec method
 
 
 
+Cummulative QC : Monday (27th June 2022) - 4:00 - 6:00
+Today coding challenge (QC)
+
+
+Spring
+============
+
+28.  What is “aspect-oriented programming”? Define an aspect.
+    
+29.  Give an example of a cross-cutting concern you could use AOP to address
+    
+30.  Define the following:
+    
+
+*  Join point
+    
+*  Pointcut
+    
+*  Advice
+    
+
+31.  What are the different types of advice? What is special about the @Around advice? How is the ProceedingJoinPoint used?
+    
+33.  Explain the pointcut expression syntax
+    
+34.  What visibility must Spring bean methods have to be proxied using Spring AOP?
+
+
+
+================
+
+### Spring MVC
+
+15.  Explain the MVC architecture and how HTTP requests are processed in the architecture
+    
+16.  What is the role of the DispatcherServlet? What about the ViewResolver?
+    
+17.  List some stereotype annotations. What are the differences between these?
+    
+18.  How would you declare which HTTP requests you’d like a controller to process?
+    
+19.  What is the difference between @RequestMapping and @GetMapping?
+    
+20.  How to declare the data format your controller expects from requests or will create in responses?
+    
+21.  What annotation would you use to bypass the ViewResolver?
+    
+22.  How would you extract query and path parameters from a request URL in your controller?
+    
+23.  What concerns is the controller layer supposed to handle vs the service layer?
+    
+24.  How would you specify HTTP status codes to return from your controller?
+    
+25.  How do you handle exceptions thrown in your code from your controller? What happens if you don’t set up any exception handling?
+    
+26.  How would you consume an external web service using Spring?
+    
+27.  What are the advantages of using RestTemplate?
+
+RestTemplate : 
 
