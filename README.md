@@ -8163,3 +8163,147 @@ Spring
 
 RestTemplate : 
 
+
+===========
+What do you mean 
+pinpoint
+
+
+
+
+Week9
+
+
+Cummulative QC - 4:00 - 6:00 PM EST
+
+---------------
+Staging Orientation
+
+Tue 6/28/2022 12:00 PM - 1:00 PM EST
+
+Join Zoom Meeting
+https://revature.zoom.us/j/86049464756?pwd=c3d5QU9BY3Q0ck5ZSWl4Y2xOYWRBUT09
+
+Agenda
+
+Staging Goal and Objectives      
+Staging Description 
+Staging Expectations       
+Staging Success
+Questions 
+       
+
+Work on your p3
+
+
+
+Client Interviews - Thursday and Friday
+
+
+--------------------------------------------------------------------------------------------------------------
+
+javalin	- fake 
+
+incident managenent
+pinpoint
+Recap - Spring, Docker
+
+
+
+
+
+Download and install JDK11
+
+JAVA_8_HOME		= C:\Program Files\Java\jdk1.8.0_202
+JAVA_11_HOME		=C:\Program Files\Java\jdk-11.0.15	
+
+
+Autowired - search for the matching bean and inject it. (object - which is managed by spring)
+
+
+
+
+Sterotypes annotations
+
+@Component
+@Repository
+@Controller
+@Service
+
+
+CSS - ID vs Class
+
+
+
+The difference between an ID and a class is that an ID is only used to identify one single element in our HTML. IDs are only used when one element on the page should have a particular style applied to it. However, a class can be used to identify more than one HTML element.
+
+
+
+@Controller vs 	@RestController
+
+MVC		Rest	
+Views		Data
+JSP/HTML	JSON/XML
+End user		another application
+restcontroller marks a class as a request handler
+
+
+@Controller is used to mark classes as Spring MVC Controller. @RestController annotation is a special controller used in RESTful Web services, and it's the combination of @Controller and @ResponseBody annotation
+
+Docker is a software platform that allows you to build, test, and deploy applications quickly. Docker packages software into standardized units called ...
+
+Container vs images
+
+Images are created with the build command or we can pull the images , and they'll produce a container when started with run.
+
+
+
+
+Docker Compose
+================
+
+Compose is a tool for defining and running multi-container Docker applications. 
+With Compose, you use a YAML file to configure your application's services.
+
+
+
+
+Core Java
+	OOPS
+	AC/Interface
+	static vs final
+	access specifers
+SQL
+Spring
+
+
+Devops
+Docker
+Grafana
+Promtheues
+k8s
+	kubectl
+jenkins
+
+
+
+Tomo 11: AM EST - p3 checkpoint meeting - Mr. Kenneth Davis
+
+
+=================================================
+
+
+11:00 - 11:45 AM - Core Java Q&A session break root 10
+
+
+2:30 - 3:30 PM SQL Q&A session breakout 10
+
+
+==================================================
+
+MVC - Design pattern
+
+Spring MVC - DispatcherServlet (Controller)
+
+
+
