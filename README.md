@@ -8374,5 +8374,131 @@ static keyword makes the variable/method as class variables
 final keywork makes the variable as constant
 
 8. Object class
+super class for all the classes in java
+list some methods of object class
+equals,toString,hashCode, finalize
+
+9. Java	What is JDBC?	
+Java database connectivity
+with the help of jdbc api by which we can connect our java application with any databases
+
+10. Method overloading & overriding
+overloading is a concept by which we can have same method names but signature(parameters) has to be different
+overriding is a concept by which child class rewrites the method of the super class
+** child might have different implementation of the parent class method
+
+11. String API and list some methods of string 
+is immutable 
+is group of characters 
+length, substring, concat , split
+
+12. StringBuilder and StringBuffer
+mutable
+StringBuilder	- not sync
+
+13. Wrapper classes
+It allows us to convert primitives data types to corresponding object class
+Character, Integer,Float,Double,Byte,Boolean
 
 
+14. Abstract classes
+Abstract class is used to provide common method implementation to all the subclasses or to provide default implementation.
+We cannot create an object of AC
+It can contain abstract as well as non abstract method
+extends
+
+15. Interface
+It can contain only abstract methods
+implements
+we can have only final variable
+
+16. new features of jdk1.8
+lambada 
+functional interface
+default and static methods in interface
+
+
+17. What is an exception ?What is the super class for all the exception in java?
+  Types of exception? How you will create user defined exception ?
+Event that interrupts of the normal flow of program. 
+Checked and Unchecked. extends EXCEPTION/RUNTIME EXCEPTION
+
+What is the super class for all the exception in java - Throwable
+
+
+18. What is Paired Programming ?
+
+
+19. What is Singleton pattern ?
+Singleton is a design pattern that ensures that a class can only have one object
+
+20. What is Factory design pattern ? 
+- comes under creational design pattern
+- this deals with creation of an object and states that the object must be created at one place i.e Factory
+
+
+====================SQL========================
+SQL	Are you familiar with SQL? What databases do you know?	
+SQL	Gave me a scenario and asked what join I would use (SQL).
+Inner join - only macthing from both tables
+Outer join - left, right, full join 
+
+self join - same table join -- employees reporting to there manager
+
+	
+SQL	SQL query question (select all from one table with the max number).	
+
+use aggregate function - max 
+Select first_name, max(salary) from employee 
+
+error : not a group function
+
+
+group by first_name
+
+Select first_name, max(salary) from employee group by first_name
+
+Select first_name,manager_id, max(salary) from employee group by first_name,manager_id
+
+
+1) 
+sub languages of SQL
+
+DML	- insert, delete and update
+DDL	- create, alter,truncate, drop
+DQL	- select
+DCL	- grant,revoke
+TCL	- commit,savepoint,rollback
+
+2) What is Referential Integrity ?
+relationship between two tables based on foreign key
+we create relationship of parent and child by creating foreign key
+
+3) Sub-queries
+query within a query
+
+4) Set Operations
+
+union
+union all
+intersect
+minus
+
+AWS	What is AWS EC2?	
+Elastic Cloud Computing
+Virtual Servers in the Cloud
+Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) Cloud. Using Amazon EC2 eliminates your need to invest in hardware up front, so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. 
+Amazon EC2 enables you to scale up or down to handle changes in requirements or spikes in popularity, reducing your need to forecast traffic.
+
+
+
+AWS	How do you deploy and access an EC2 instance?	-- Ubutntu - We can access it by putty ?
+
+
+AWS	What is AWS RDS?	
+Amazon RDS is a managed relational database service for MySQL, PostgreSQL, MariaDB, Oracle BYOL, or SQL Server.
+
+
+AWS	What is AWS S3?	
+storage service to store our files 
+Amazon Simple Storage Service (Amazon S3) is an object storage service offering industry-leading scalability, data availability, security, and performance.
