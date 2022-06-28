@@ -8307,3 +8307,72 @@ Spring MVC - DispatcherServlet (Controller)
 
 
 
+
+================================================Common Core Java - Q&A================
+
+1>    What are the 4 Pillars of OOP in Java and can you give me an example of each
+Abstraction is a process of hiding implementation details and exposes only the functionality to the user.
+ In abstraction, we deal with ideas and not events. 
+This means the user will only know “what it does” rather than “how it does”.
+By using abstract class
+
+
+Encapsulation
+
+Encapsulation is the process of wrapping code and data together into a single unit.
+In order to achieve encapsulation in java follow certain steps as proposed below:
+
+Declare the variables as private
+Declare the setters and getters to set and get the variable values
+
+Inheritance is the process of one class inheriting properties and methods from another class in Java. Inheritance is used when we have is-a relationship between objects.  Inheritance in Java is implemented using extends keyword.
+
+is -a relationship
+Real-life Example:
+
+The planet Earth and Mars inherits the super class Solar System and Solar system inherits the Milky Way Galaxy. So Milky Way Galaxy is the top super class for Class Solar System, Earth and Mars.
+
+
+Polymorphism is the ability to perform many things in many ways. The word Polymorphism is from two different Greek words- poly and morphs. “Poly” means many, and “Morphs” means forms. So polymorphism means many forms. The polymorphism can be present in the case of inheritance also. The functions behave differently based on the actual implementation.
+
+Real-life Example:
+
+A delivery person delivers items to the user. If it’s a postman he will deliver the letters. If it’s a food delivery boy he will deliver the foods to the user. Like this polymorphism implemented different ways for the delivery function.
+
+2) JVM,JDK and JRE
+
+JDK	- JVM and JRE - we can write and execute java programs
+JRE	- JVM	- we can only execute java programs 
+
+.class file - bytecode
+java Welcome
+
+3) Constructors
+	- special method which has the same name as class name
+	- it does not have any return type not even void
+	- it will called automatically whenever you create an object
+	- it is used to intialize instance variables
+	- default constructor will be avilable if no constructor is specified
+
+
+4) Access modifiers
+public : any where
+private : nobody can access , jus within the class
+default : within package 
+protected : within package + child classes
+
+5. Can you tell me about some of the non access modifiers in java 
+
+static, final, abstract
+
+6. Scopes of a variable
+there are 4 scopes
+global,instance,block and local
+
+7. what is the difference between static and final keyword in java ?
+static keyword makes the variable/method as class variables
+final keywork makes the variable as constant
+
+8. Object class
+
+
