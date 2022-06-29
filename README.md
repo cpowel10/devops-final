@@ -4766,7 +4766,7 @@ Monitoring
 
 
 Grafana provides a way to visualize that data through graphs and level of reporting and alerting.
-Grafana doesnt have any data, it bhas to extract the data , it has to extract data from all data sources like mysql, loki, promethues,
+Grafana doesnt have any data, it has to extract the data , it has to extract data from all data sources like mysql, loki, promethues,
 
 
 Organizations utilizez Grafana for monitoring logs
@@ -8502,3 +8502,274 @@ Amazon RDS is a managed relational database service for MySQL, PostgreSQL, Maria
 AWS	What is AWS S3?	
 storage service to store our files 
 Amazon Simple Storage Service (Amazon S3) is an object storage service offering industry-leading scalability, data availability, security, and performance.
+
+
+Docker
+k8s
+Helm
+terraform
+agile
+scrum
+grafana
+prometheues
+
+
+spring
+Project
+
+=======================================================================================
+
+What is Docker ?
+Ans : 
+Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers
+Docker is an open platform for developing, shipping, and running applications.
+
+
+What is a container in docker ?
+Runnable isolated instance of a set of processes(images) and their dependencies.
+A Docker container is built from a Docker image. 
+
+What is an image in docker ?
+Blueprint for a container
+Docker Image is an executable package of software that includes everything needed to run an application. 
+An image is a file that represents a packaged application with all the dependencies needed to run correctly.
+
+
+
+What is the command to check the running process
+docker ps
+
+
+What is the command to check all the process 
+docker ps -a
+
+DevOps	Have you used Docker?
+
+
+What is Dockerfile
+Dockerfile
+Defines everything needed for an image. It outlines the starting point, dependencies and commands that make up all the processes needed for an image and in turn a container.
+
+
+Give me some keywords that we use in Dockerfile
+
+are FROM,ENTRYPOINT,EXPOSE,RUN
+
+How you create docker image 
+docker build -t imagename:tagname .
+
+How you can run docker image
+docker run demo:latest -p 8080:8080 -n luisteam
+
+
+What is the docker compose ?
+Docker compose is the tool that makes creating and managing multi-container applications easier.
+
+It's fundamental use is based around the docker-compose file.
+
+
+What is docker-hub ?
+It is a remote repository which stores all the images
+
+Docker Workflow 
+
+
+=======================================
+
+Grafana	- Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alerts for the web when connected to supported data sources
+
+What data sources you have used in Grafana ?
+
+what is Loki and Prometheus
+Log aggregation tool - it reads from the log file and give us the metrics
+
+How to integrate loki in grafana ?
+
+
+------------Long Answer-------
+
+
+
+---------------
+
+loki-local-config.yaml
+
+#This is loki-local-config.yaml
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+
+ingester:
+  wal:
+    enabled: true
+    dir: /tmp/wal
+  lifecycler:
+    address: 127.0.0.1
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+    final_sleep: 0s
+  chunk_idle_period: 1h       # Any chunk not receiving new logs in this time will be flushed
+  max_chunk_age: 1h           # All chunks will be flushed when they hit this age, default is 1h
+  chunk_target_size: 1048576  # Loki will attempt to build chunks up to 1.5MB, flushing first if chunk_idle_period or max_chunk_age is reached first
+  chunk_retain_period: 30s    # Must be greater than index read cache TTL if using an index cache (Default index read cache TTL is 5m)
+  max_transfer_retries: 0     # Chunk transfers disabled
+
+schema_config:
+  configs:
+    - from: 2020-12-22
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+storage_config:
+  boltdb_shipper:
+    active_index_directory: /tmp/loki/boltdb-shipper-active
+    cache_location: /tmp/loki/boltdb-shipper-cache
+    cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+    shared_store: filesystem
+  filesystem:
+    directory: /tmp/loki/chunks
+
+compactor:
+  working_directory: /tmp/loki/boltdb-shipper-compactor
+  shared_store: filesystem
+
+limits_config:
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+
+chunk_store_config:
+  max_look_back_period: 0s
+
+table_manager:
+  retention_deletes_enabled: false
+  retention_period: 0s
+
+ruler:
+  storage:
+    type: local
+    local:
+      directory: /tmp/loki/rules
+  rule_path: /tmp/loki/rules-temp
+  alertmanager_url: http://localhost:9093
+  ring:
+    kvstore:
+      store: inmemory
+  enable_api: true
+
+
+---------------------promtail-local-config.yaml
+
+#This is promtail-local-config.yaml 
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://localhost:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: system
+  pipeline_stages:
+  
+  - output:
+      source: message
+ 
+      action_on_failure: skip
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: test
+      agent: promtail
+      __path__: H:/Grafana/test/*
+
+
+-------------------------
+test.txt Create test.txt inside above folder
+
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :.main: *************** RSVP Agent started ***************
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :...locate_configFile: Specified configuration file: /u/user10/rsvpd1.conf
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :.main: Using log level 511
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :..settcpimage: Get TCP images rc - EDC8112I Operation not supported on socket.
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :..settcpimage: Associate with TCP/IP image name = TCPCS
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :..reg_process: registering process with the system
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :..reg_process: attempt OS/390 registration
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :..reg_process: return from registration rc=0
+2021-12-26T13:11:05-01:00 11.2.3.85 TRACE  :...read_physical_netif: Home list entries returned = 7
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :...read_physical_netif: index #0, interface VLINK1 has address 129.1.1.1, ifidx 0
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :...read_physical_netif: index #1, interface TR1 has address 9.37.65.139, ifidx 1
+2021-12-26T13:11:05-01:00 11.2.3.85 INFO   :...read_physical_netif: index #2, interface 
+
+-------------
+
+
+Download loki			https://github.com/grafana/loki/releases/download/v2.5.0/loki-windows-amd64.exe.zip
+Download promtail			https://github.com/grafana/loki/releases/download/v2.5.0/promtail-windows-amd64.exe.zip
+Download nssm.exe		https://nssm.cc/release/nssm-2.24.zip
+
+Run cmd and navigate to the below folder :
+
+H:\nssm-2.24\win64>.\nssm.exe install loki
+Service "loki" installed successfully!
+
+H:\nssm-2.24\win64>.\nssm.exe install promtail
+Service "promtail" installed successfully!
+
+
+Verify :
+
+localhost:3100/metrics
+http://localhost:9080/
+
+
+Open grafana : create a data source Loki
+
+http://127.0.0.1:3100
+
+
+Explore
+
+
+
+==========================================================================
+Monitoring; what monitoring tools have you used?
+Grafana and Promethues - 
+
+Promtail -- read the logs
+
+
+=============================================================d
+
+
+How do you setup a cluster deployment? What should you consider about cluster deployment?
+
+
+What is the structure Kubernetes?
+What are common commands in Helm?
+What is Terraform?
+What are Terrform values?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
