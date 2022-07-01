@@ -8739,9 +8739,6 @@ How do you setup a cluster deployment? What should you consider about cluster de
 
 
 What is the structure Kubernetes?
-What are common commands in Helm?
-What is Terraform?
-What are Terrform values?
 
 
 
@@ -9070,4 +9067,72 @@ You do not return to any previous phase at any point (until the cycle is complet
     - What can be done to improve?
     - What did you learn?
     - etc
+
+
+Jenkins
+Terraform
+Helm
+What are common commands in Helm?
+
+What is Terraform?
+What are Terraform values?
+
+IAC
+configure code as infrastructure
+
+
+
+terraform init
+terraform plan
+terraform apply
+terrform show
+
+Jenkins 
+============
+
+What is jenkins ?
+Jenkins in an Open-Source Automation Server. It helps automate the building, testing, and deployment of an application for continuous integration and delivery.
+
+It supports the development of CI/CD or DevOps "Pipelines".
+
+What problem jenkins solve ?
+It automates the processes
+
+
+How you create pipeline in jenkins ?
+
+
+'How to make a CI/CD pipeline. 
+
+
+Spring	What is dependency injection
+
+Linux	Asked if I knew what Linux was. 
+Linux	Asked if I knew the bash/Linux command to switch user. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
