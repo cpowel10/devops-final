@@ -9149,10 +9149,16 @@ Link - https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmUxZDA1MDgtYzEzMy
 Link to LAB assessment –  https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzU2ODA4MTMtN2IzNi00MGZkLTgwZGUtOWY1NzM5ZWQwMjc1%40thread.v2/0?context=%7b%22Tid%22%3a%226b63e28a-a8f9-47b5-aa40-97e231215164%22%2c%22Oid%22%3a%22ac2e489d-944a-4829-9398-47f6c863c39d%22%7d
  
 
-Links to Interview Slots – It has already been sent to your email address
+Links to Interview Slots – It has already been sent to your email address, individual emails
+
+Staging link : https://revature.zoom.us/j/92149219227?pwd=WjloS2lQNWtOb2ljdHpmdUVEZHJqZz09#success
+
+
+Few Points : 
+Please keep an eye of your AWS billing. 
 
 
 
-
-
++91-8867205331
+mohammad.tufail@revature.com
 
