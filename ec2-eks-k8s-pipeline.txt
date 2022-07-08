@@ -1,7 +1,19 @@
 Pre requisite:
 
-We need ec2 machine (ubuntu) and eks cluster - Same machine
+EKS cluster
 
+EC2 instance 
+
+-----
+
+We need ec2 machine (your aws account) and eks cluster - different aws (revature account- tufail-sre)
+
+Access: AKIA4OK5FKIYXHVX4D72
+Secret: gHYUva5HRFAWq1F3PAl/PKk+eUEwAHwPuR6b0CuE
+us-east-1
+
+Cluster name : tufail-sre
+====================================================
 Install these things in ec2 machine :
 
 sudo apt-get update
@@ -10,34 +22,71 @@ sudo apt-get update
 sudo apt install openjdk-11-jdk
 
 1) Install maven
+sudo apt update
+
 sudo apt install maven
 
-2) Install Jenkins
-$ wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add  
-  sudo apt-get install jenkins
- 
-** [ get the EC2 public URL and add 8080 and press enter in a browser ]
+mvn -version
 
-For Reference :
+=========================================================
+2) Install Jenkins
 To configure :
 https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-22-04
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
+sudo apt install jenkins
+sudo systemctl start jenkins.service
+sudo systemctl status jenkins
+sudo ufw allow 8080
+sudo ufw allow OpenSSH
+sudo ufw enable
+sudo ufw status
+
+
 ** Follow these steps to install jenkins in EC2
 
-The link for the ec2 jenkins will look the below : not exactly the same ::
+** Reboot the instance after making the changes in ec2.
 
+In addition to above , add the rule 
+
+Change the Rules of your security group [ which EC2 is using ]
+Edit Inbound rules
+
+Add Rule --> Port : 8080 , 0.0.0.0 
+
+Save
+
+Get the password ::
+
+How to get the jenkins password ::
+ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+The link for the ec2 jenkins will look the below : not exactly the same : [ EC2 public dns]
 http://ec2-34-228-21-147.compute-1.amazonaws.com:8080
 
+**install suggested plugins
 
 
 3) sudo apt install git
 
+git
 
 4) Install Sonar qube
-https://www.how2shout.com/linux/install-sonarqube-on-ubuntu-20-04-18-04-server/
+
 
 **After sonarqube is installed , we have to create a user :
-sudo useradd sonarh2s
-sudo passwd sonarh2s
+ubuntu@ip-172-31-26-29:~$ sudo useradd sonarh2s
+ubuntu@ip-172-31-26-29:~$ sudo passwd sonarh2s
+New password:
+Retype new password:
+passwd: password updated successfully
+
+
+https://www.vultr.com/docs/install-sonarqube-on-ubuntu-20-04-lts/
+
+
 
 
 5) Install docker
@@ -65,9 +114,9 @@ the path "/home/ubuntu/demo.yml" cannot be accessed: stat /home/ubuntu/demo.yml:
 Solution:
 install AWS-CLI on EC2---
 
-a) Install AWS CLI
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
+a) (Error is coming -- skip ) Install AWS CLI
+sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo unzip awscliv2.zip
 sudo ./aws/install
 
 b) Make the jenkins user password as null
@@ -128,10 +177,11 @@ https://docs.aws.amazon.com/cli/v1/userguide/install-windo
 
 aws configure --profile personal
 
-AWS access_key
-AWS secret_access_key
-region:  us-east-1
-format : json
+Access: AKIA4OK5FKIYXHVX4D72
+Secret: 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
+us-east-1
+
+Cluster name : tufail-sre
 
 aws eks --profile personal update-kubeconfig --name tufail-sre --region us-east-1
 
@@ -150,6 +200,7 @@ Provide the docker username and password where the image have to uploaded
 http://ec2-34-228-21-147.compute-1.amazonaws.com:9000
 Add a user here username : admin and password as : admin
 
+=======================================================Not required
 Navigate to My Account --> Security --> select the token type as user token
 --> Generate Tokens (give the name as jenkins) --> copy the authentication token
 
@@ -158,6 +209,14 @@ Manage Jenkins --> Add Credentials --> Type -- Secret Text
 
 Name : jenkins-sonar
 value : paste the token copied above
+
+=======================================
+
+upload your yaml in aws bucket and make it public
+wget https://hr-2022-91817.s3.us-east-2.amazonaws.com/revature.jpg [ not jpeg but your yaml files]
+/home/ubuntu/
+
+ls
 
 ===========================That's it ==================
 

@@ -9111,25 +9111,45 @@ Linux	Asked if I knew what Linux was.
 Linux	Asked if I knew the bash/Linux command to switch user. 
 
 
+<h2>
+
+---------Monday 7/11 Lab details --------
 
 
 
 
+Access Key ID: AKIA4OK5FKIY6RSF25GJ
+Secret Access Key: 
+aws configure --profile sre-lab
+aws eks --region us-east-1 update-kubeconfig --name sre-lab --profile sre-lab
+kubectl create namespace <name>
+lowercase-snake-case
+kubectl get deployments -n <name>
+metadata:
+  name: my-deployment
+  namespace: <name>
 
 
 
 
+kubectl config get-contexts
+kubectl config use-context <context-name>
+kubectl config rename-context <original-name> <new-name>
 
 
 
 
+Please find below a fresh link for the introduction call.  A one-hour call has been requested for Monday, July 11th, 2022, at 8 am EST.    
+
+
+Link - https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmUxZDA1MDgtYzEzMy00Y2NhLTk0YjItNDg2M2Q2ZDEwNzdl%40thread.v2/0?context=%7b%22Tid%22%3a%226b63e28a-a8f9-47b5-aa40-97e231215164%22%2c%22Oid%22%3a%22ac2e489d-944a-4829-9398-47f6c863c39d%22%7d
 
 
 
+Link to LAB assessment –  https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzU2ODA4MTMtN2IzNi00MGZkLTgwZGUtOWY1NzM5ZWQwMjc1%40thread.v2/0?context=%7b%22Tid%22%3a%226b63e28a-a8f9-47b5-aa40-97e231215164%22%2c%22Oid%22%3a%22ac2e489d-944a-4829-9398-47f6c863c39d%22%7d
+ 
 
-
-
-
+Links to Interview Slots – It has already been sent to your email address
 
 
 
